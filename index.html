@@ -1,0 +1,4422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3efe8">
+<title>Moodboard — palette & playlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f3efe8;
+  --fg: #1d1b18;
+  --mut: #6a645b;
+  --line: #d9d2c6;
+  --card: #faf7f2;
+  --a: #c8553d;
+  --ai: #fff;
+  --r: 14px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+:root[data-theme="dark"] {
+  --bg: #121110;
+  --fg: #efe9df;
+  --mut: #8d867b;
+  --line: #2a2723;
+  --card: #1a1816;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font:
+    16px/1.55 Inter,
+    system-ui,
+    sans-serif;
+  transition:
+    background 0.5s var(--ease),
+    color 0.5s var(--ease);
+  -webkit-font-smoothing: antialiased;
+}
+main {
+  max-width: 1240px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  column-gap: clamp(24px, 4vw, 64px);
+  padding: 22px clamp(16px, 4vw, 48px) 28px;
+}
+.L {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.R {
+  min-width: 0;
+  border-left: 1px solid var(--line);
+  padding-left: clamp(24px, 4vw, 64px);
+}
+header {
+  grid-column: 1/-1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: clamp(16px, 3vh, 32px);
+}
+.logo {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+button,
+a {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+}
+.tg {
+  border: 1px solid var(--line);
+  background: transparent;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  transition: all 0.25s var(--ease);
+}
+.tg:hover {
+  border-color: var(--fg);
+}
+h1 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4.6vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0 0 22px;
+}
+h1 em {
+  font-style: italic;
+  color: var(--a);
+  transition: color 0.5s;
+}
+.inp {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1.5px solid var(--fg);
+  padding-bottom: 6px;
+  transition: border-color 0.3s;
+}
+.inp:focus-within {
+  border-color: var(--a);
+}
+#q {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--fg);
+  font:
+    400 1.35rem Fraunces,
+    Georgia,
+    serif;
+  padding: 6px 0;
+}
+#q::placeholder {
+  color: var(--mut);
+}
+.go {
+  border: 0;
+  background: var(--fg);
+  color: var(--bg);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  transition:
+    transform 0.25s var(--ease),
+    background 0.3s;
+}
+.go:hover {
+  transform: translateX(3px);
+}
+.tools {
+  margin-bottom: 16px;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 16px 0 18px;
+  font-size: 0.88rem;
+}
+.chip {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--mut);
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s;
+}
+.chip:hover {
+  color: var(--fg);
+  border-color: var(--fg);
+}
+.pal {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  min-height: 240px;
+}
+.sw {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  border-radius: var(--r);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 14px;
+  font: 500 0.78rem Inter;
+  letter-spacing: 0.04em;
+  transition:
+    flex 0.45s var(--ease),
+    background 0.6s var(--ease),
+    color 0.3s,
+    transform 0.3s var(--ease);
+}
+.sw:hover {
+  flex: 2.2;
+}
+.sw:active {
+  transform: scale(0.98);
+}
+.hint {
+  color: var(--mut);
+  font-size: 0.8rem;
+  margin: 10px 0 0;
+  min-height: 1.3em;
+}
+section {
+  margin-top: 36px;
+}
+section:first-child {
+  margin-top: 0;
+}
+.lab {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mut);
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lab:after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.tempo {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 2.2rem;
+  line-height: 1.1;
+  margin: 0;
+}
+.tempo small {
+  font: 400 0.9rem Inter;
+  color: var(--mut);
+  margin-left: 6px;
+}
+.blurb {
+  font:
+    italic 400 1.1rem/1.45 Fraunces,
+    Georgia,
+    serif;
+  margin: 0 0 20px;
+  max-width: 46ch;
+  display: none;
+}
+.genres {
+  color: var(--mut);
+  margin: 8px 0 18px;
+  font-size: 1.02rem;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.25s var(--ease);
+}
+.btn:hover {
+  border-color: var(--fg);
+  transform: translateY(-1px);
+}
+.btn.pri {
+  background: var(--a);
+  color: var(--ai);
+  border-color: var(--a);
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+  transform: none;
+}
+.seg {
+  display: inline-flex;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px;
+  margin-bottom: 18px;
+}
+.seg button {
+  border: 0;
+  background: none;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: var(--mut);
+  transition: all 0.25s var(--ease);
+}
+.seg button.on {
+  background: var(--fg);
+  color: var(--bg);
+}
+details {
+  margin: 0 0 16px;
+  font-size: 0.88rem;
+  color: var(--mut);
+}
+summary {
+  cursor: pointer;
+  width: max-content;
+}
+#key {
+  width: 100%;
+  margin-top: 10px;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--fg);
+  font: inherit;
+  outline: 0;
+}
+#key:focus {
+  border-color: var(--a);
+}
+h2 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 400;
+  font-size: 1.7rem;
+  letter-spacing: -0.01em;
+  margin: 24px 0 4px;
+}
+.trk {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: in 0.5s var(--ease) forwards;
+  animation-delay: calc(var(--i) * 40ms);
+}
+@keyframes in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.n {
+  font:
+    400 0.85rem Fraunces,
+    serif;
+  color: var(--mut);
+}
+.t {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-weight: 500;
+}
+.t small {
+  display: block;
+  font-weight: 400;
+  color: var(--mut);
+  font-size: 0.88rem;
+}
+.pl {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 0.25s var(--ease);
+}
+.pl:hover {
+  background: var(--a);
+  color: var(--ai);
+  border-color: var(--a);
+}
+.act {
+  margin-top: 20px;
+}
+.note {
+  color: var(--mut);
+  font-size: 0.82rem;
+  margin: 14px 0 0;
+  max-width: 56ch;
+}
+footer {
+  grid-column: 1/-1;
+  margin-top: 40px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--mut);
+  font-size: 0.8rem;
+}
+button.pl {
+  background: transparent;
+  cursor: pointer;
+}
+.sls {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.sls label {
+  display: grid;
+  grid-template-columns: 4.6rem 1fr 4.6rem;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--mut);
+}
+.sls label span:last-child {
+  text-align: right;
+}
+input[type="range"] {
+  accent-color: var(--a);
+  width: 100%;
+}
+.hi {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.hb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  background: none;
+  padding: 0;
+  text-align: left;
+  min-width: 0;
+}
+.mini {
+  display: flex;
+  width: 64px;
+  height: 26px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex: none;
+}
+.mini i {
+  flex: 1;
+}
+.hb span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.hb small {
+  display: block;
+  color: var(--mut);
+  font-weight: 400;
+}
+.fv {
+  border: 0;
+  background: none;
+  font-size: 1.1rem;
+  color: var(--mut);
+}
+.fv.on {
+  color: var(--a);
+}
+.empty {
+  color: var(--mut);
+  font-size: 0.88rem;
+}
+#ov {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 9, 8, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  display: none;
+  z-index: 9;
+  overflow: auto;
+  padding: max(20px, env(safe-area-inset-top)) 20px max(20px, env(safe-area-inset-bottom));
+}
+#ov.on {
+  display: block;
+}
+.sheet {
+  max-width: 560px;
+  margin: 0 auto;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 18px;
+}
+.shead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.sheet .seg {
+  margin: 0 0 10px;
+}
+.pvw {
+  display: grid;
+  place-items: center;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 12px;
+  margin: 14px 0;
+}
+.pvw img {
+  max-width: 100%;
+  max-height: 60vh;
+  border-radius: 8px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+}
+.sact {
+  justify-content: center;
+}
+.ra {
+  grid-column: 1/-1;
+  display: none;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 2px 0 6px 2rem;
+}
+.trk.open .ra {
+  display: flex;
+}
+.ra .btn {
+  padding: 7px 13px;
+  font-size: 0.82rem;
+}
+.pl.on {
+  background: var(--fg);
+  color: var(--bg);
+}
+.btn.on {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+.pbar {
+  flex-wrap: wrap;
+}
+.seg {
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.seg::-webkit-scrollbar {
+  display: none;
+}
+.seg button {
+  white-space: nowrap;
+}
+button,
+a,
+select {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+#mini {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 7px 7px 18px;
+  z-index: 4;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+#mnow {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+body.amb #mini {
+  display: none !important;
+}
+.ystat {
+  display: flex;
+  gap: 28px;
+  margin: 4px 0 16px;
+}
+.ystat b {
+  display: block;
+  font:
+    400 2rem/1 Fraunces,
+    Georgia,
+    serif;
+}
+.ystat span {
+  color: var(--mut);
+  font-size: 0.78rem;
+}
+.ystrip {
+  display: flex;
+  height: 120px;
+  border-radius: 14px;
+  overflow: hidden;
+  gap: 2px;
+}
+.ystrip div {
+  flex: 1;
+  min-width: 2px;
+}
+.ydates {
+  display: flex;
+  justify-content: space-between;
+  color: var(--mut);
+  font-size: 0.75rem;
+  margin: 6px 0 4px;
+}
+.ysub {
+  margin: 22px 0 10px;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pill {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 0.85rem;
+}
+.pill small {
+  color: var(--mut);
+  margin-left: 6px;
+}
+.gbar {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr 1.4rem;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.85rem;
+  margin: 7px 0;
+}
+.gbar div {
+  height: 8px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--a) 18%, transparent);
+  overflow: hidden;
+}
+.gbar i {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--a);
+}
+.gbar span:last-child {
+  color: var(--mut);
+  text-align: right;
+}
+#bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+  pointer-events: none;
+}
+body.glow #bg {
+  opacity: 0.3;
+}
+:root[data-theme="dark"] body.glow #bg {
+  opacity: 0.4;
+}
+#bg i {
+  position: absolute;
+  width: 55vmax;
+  height: 55vmax;
+  border-radius: 50%;
+  filter: blur(90px);
+  background: var(--c, transparent);
+  transition: background 1.4s;
+  animation: drift 26s ease-in-out infinite alternate;
+}
+#bg i:nth-child(1) {
+  left: -12%;
+  top: -18%;
+}
+#bg i:nth-child(2) {
+  right: -15%;
+  top: 5%;
+  animation-duration: 32s;
+  animation-delay: -8s;
+}
+#bg i:nth-child(3) {
+  left: 15%;
+  bottom: -25%;
+  animation-duration: 29s;
+  animation-delay: -15s;
+}
+#bg i:nth-child(4) {
+  right: 5%;
+  bottom: -20%;
+  animation-duration: 36s;
+  animation-delay: -4s;
+}
+@keyframes drift {
+  to {
+    transform: translate(16vw, 10vh) scale(1.2);
+  }
+}
+main {
+  transition: opacity 0.6s var(--ease);
+}
+#amb {
+  position: fixed;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  z-index: 5;
+  cursor: pointer;
+}
+#amb p {
+  margin: 0;
+}
+#atitle {
+  font:
+    400 clamp(2.4rem, 8vw, 6.5rem)/1.05 Fraunces,
+    Georgia,
+    serif;
+  letter-spacing: -0.02em;
+}
+#anow {
+  margin-top: 18px !important;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  min-height: 1.5em;
+}
+#amb span {
+  position: absolute;
+  bottom: 24px;
+  font-size: 0.78rem;
+  opacity: 0.5;
+}
+body.amb main {
+  opacity: 0;
+  pointer-events: none;
+}
+body.amb #amb {
+  display: flex;
+}
+body.amb #bg {
+  opacity: 1;
+}
+.hr {
+  display: flex;
+  gap: 8px;
+}
+.tg.on {
+  background: var(--fg);
+  color: var(--bg);
+}
+.sw {
+  cursor: pointer;
+  text-align: left;
+}
+.lk {
+  margin-bottom: auto;
+  border: 1px solid currentColor;
+  background: transparent;
+  border-radius: 999px;
+  padding: 3px 9px;
+  font:
+    500 0.68rem Inter,
+    sans-serif;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.sw:hover .lk,
+.sw.lkd .lk {
+  opacity: 0.95;
+}
+.sw.lkd .lk {
+  background: currentColor;
+}
+.sw.lkd .lk {
+  color: inherit;
+}
+.opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-bottom: 18px;
+}
+.opts label {
+  display: grid;
+  gap: 4px;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+.opts select {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--fg);
+  font:
+    500 0.88rem Inter,
+    sans-serif;
+}
+.pbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0 10px;
+}
+.pbar .btn {
+  padding: 7px 16px;
+}
+.pnow {
+  color: var(--mut);
+  font-size: 0.85rem;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.strip {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 8px;
+}
+.sg {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--c) 25%, transparent);
+}
+.sg > i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--c);
+}
+.hi.sel {
+  background: color-mix(in srgb, var(--a) 14%, transparent);
+  border-radius: 10px;
+  padding-left: 8px;
+}
+@media (max-width: 860px) {
+  main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right))
+      max(24px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  }
+  header {
+    padding-bottom: 22px;
+  }
+  .R {
+    border-left: 0;
+    padding-left: 0;
+    margin-left: 0;
+    margin-top: 44px;
+  }
+  .pal {
+    flex: none;
+    height: 210px;
+    min-height: 0;
+  }
+  body.playing main {
+    padding-bottom: calc(104px + env(safe-area-inset-bottom));
+  }
+  body.playing #mini {
+    display: flex;
+  }
+  #bg i {
+    filter: blur(60px);
+  }
+  select,
+  input {
+    font-size: 16px;
+  }
+}
+@media (max-width: 640px) {
+  h1 {
+    font-size: clamp(2.1rem, 10vw, 2.8rem);
+    margin-bottom: 18px;
+  }
+  #q {
+    font-size: 1.2rem;
+  }
+  .tools .btn {
+    flex: 1;
+    justify-content: center;
+  }
+  .pal {
+    flex-direction: column;
+    height: auto;
+    gap: 6px;
+  }
+  .sw,
+  .sw:hover {
+    flex: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    height: 58px;
+    padding: 0 16px;
+    font-size: 0.82rem;
+    border-radius: 12px;
+  }
+  .sw .lk {
+    order: 3;
+    margin: 0 0 0 auto;
+    opacity: 0.85;
+  }
+  .sw small {
+    order: 2;
+    margin: 0 !important;
+  }
+  .sw span {
+    order: 1;
+  }
+  .btn {
+    padding: 11px 16px;
+  }
+  .sls label {
+    grid-template-columns: 3.6rem 1fr 3.6rem;
+    font-size: 0.74rem;
+    gap: 10px;
+  }
+  .opts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .opts select {
+    width: 100%;
+  }
+  .trk {
+    grid-template-columns: 1.6rem 1fr auto auto;
+  }
+  .pl {
+    width: 42px;
+    height: 42px;
+  }
+  .ra {
+    padding-left: 1.6rem;
+  }
+  .pbar .pnow {
+    flex-basis: 100%;
+    order: 3;
+  }
+  .tempo {
+    font-size: 1.9rem;
+  }
+  .lab {
+    margin-bottom: 12px;
+  }
+  section {
+    margin-top: 40px;
+  }
+  footer {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .fv {
+    padding: 10px;
+  }
+  .sheet {
+    padding: 14px;
+    border-radius: 16px;
+  }
+  .tg {
+    padding: 7px 12px;
+  }
+  .gbar {
+    grid-template-columns: 6rem 1fr 1.4rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .trk {
+    opacity: 1;
+    transform: none;
+  }
+}
+#sseg,
+#zseg {
+  margin-right: 8px;
+}
+
+.hr {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.inp.sm {
+  margin-top: 4px;
+  border-bottom-width: 1px;
+}
+.inp.sm input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--fg);
+  font:
+    400 1rem Inter,
+    system-ui,
+    sans-serif;
+  padding: 6px 0;
+}
+.inp.sm input::placeholder {
+  color: var(--mut);
+}
+.inp.sm .go {
+  width: 34px;
+  height: 34px;
+  font-size: 0.95rem;
+}
+.pd {
+  margin: 14px 0 18px;
+  font-size: 0.88rem;
+  color: var(--mut);
+}
+#pt {
+  width: 100%;
+  min-height: 96px;
+  margin: 10px 0;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--fg);
+  font: inherit;
+  resize: vertical;
+  outline: 0;
+}
+#pt:focus {
+  border-color: var(--a);
+}
+.edit {
+  display: none;
+  margin-top: 14px;
+}
+.edit.on {
+  display: block;
+}
+.ech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ec {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  padding: 5px 6px;
+  cursor: grab;
+}
+.ec.drag {
+  opacity: 0.4;
+}
+.ec.over {
+  border-color: var(--a);
+}
+.ec input[type="color"] {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.ec code {
+  font:
+    500 0.72rem Inter,
+    sans-serif;
+  color: var(--mut);
+  margin: 0 4px;
+}
+.ec button {
+  border: 0;
+  background: none;
+  color: var(--mut);
+  padding: 8px;
+  font-size: 0.8rem;
+  border-radius: 8px;
+}
+.ec button:hover {
+  color: var(--fg);
+}
+.eact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.lv {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  background: var(--card);
+  --pb: #fff;
+  --pf: #111;
+  --pa: #c8553d;
+  --pai: #fff;
+  --pb2: #ddd;
+  --pbi: #111;
+}
+.vp {
+  background: var(--pb);
+  color: var(--pf);
+  border-radius: 10px;
+  overflow: hidden;
+  font:
+    400 0.85rem/1.45 Inter,
+    system-ui,
+    sans-serif;
+}
+.vp * {
+  box-sizing: border-box;
+}
+.vn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-bottom: 1px solid color-mix(in srgb, var(--pf) 14%, transparent);
+  font-size: 0.8rem;
+}
+.vn b {
+  margin-right: auto;
+  font:
+    600 1rem Fraunces,
+    Georgia,
+    serif;
+}
+.vh {
+  padding: 26px 18px 20px;
+}
+.vh small {
+  color: var(--pt);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+}
+.vh h3 {
+  font:
+    400 clamp(1.5rem, 5vw, 2.2rem)/1.1 Fraunces,
+    Georgia,
+    serif;
+  margin: 6px 0 10px;
+  letter-spacing: -0.01em;
+}
+.vh p {
+  margin: 0 0 16px;
+  max-width: 38ch;
+  opacity: 0.8;
+}
+.vbt {
+  display: inline-block;
+  background: var(--pa);
+  color: var(--pai);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-right: 6px;
+}
+.vbt.o {
+  background: none;
+  color: var(--pf);
+  border: 1px solid color-mix(in srgb, var(--pf) 30%, transparent);
+}
+.vn .vbt {
+  padding: 6px 12px;
+  margin: 0;
+}
+.vg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 0 18px 18px;
+}
+.vg div {
+  background: color-mix(in srgb, var(--pf) 7%, var(--pb));
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 0.78rem;
+}
+.vg i {
+  display: block;
+  height: 36px;
+  border-radius: 6px;
+  background: var(--pb2);
+  margin-bottom: 8px;
+}
+.vg div:nth-child(2) i {
+  background: var(--pa);
+}
+.vg div:nth-child(3) i {
+  background: var(--pf);
+  opacity: 0.8;
+}
+.vp.app {
+  width: min(100%, 290px);
+  margin: 0 auto;
+  border-radius: 26px;
+  border: 6px solid color-mix(in srgb, var(--pf) 85%, var(--pb));
+}
+.vah {
+  background: var(--pa);
+  color: var(--pai);
+  padding: 20px 16px 14px;
+}
+.vah small {
+  opacity: 0.8;
+}
+.vah b {
+  display: block;
+  font:
+    400 1.35rem Fraunces,
+    Georgia,
+    serif;
+}
+.val {
+  padding: 10px 12px;
+  display: grid;
+  gap: 8px;
+}
+.vli {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: color-mix(in srgb, var(--pf) 7%, var(--pb));
+  border-radius: 12px;
+  padding: 10px;
+}
+.vli i {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--pb2);
+  flex: none;
+}
+.vli:nth-child(2) i {
+  background: var(--pa);
+}
+.vli span {
+  display: block;
+  font-size: 0.72rem;
+  opacity: 0.7;
+}
+.vtab {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--pf) 14%, transparent);
+  font-size: 0.7rem;
+}
+.vtab .on {
+  color: var(--pt);
+  font-weight: 600;
+}
+.vp.slide {
+  aspect-ratio: 16/9;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+}
+.vsl {
+  padding: 6%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+.vsl small {
+  color: var(--pt);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.62rem;
+}
+.vsl h3 {
+  font:
+    400 clamp(1.2rem, 4vw, 2rem)/1.05 Fraunces,
+    Georgia,
+    serif;
+  margin: 6px 0 0;
+  letter-spacing: -0.01em;
+}
+.vsl hr {
+  width: 44px;
+  height: 4px;
+  border: 0;
+  border-radius: 2px;
+  background: var(--pb2);
+  margin: 10px 0;
+}
+.vsl ul {
+  margin: 0;
+  padding-left: 1.1em;
+  opacity: 0.85;
+  font-size: 0.76rem;
+}
+.vsr {
+  background: var(--pa);
+  color: var(--pai);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 8%;
+}
+.vsr b {
+  display: block;
+  font:
+    400 clamp(2rem, 8vw, 3.6rem)/1 Fraunces,
+    Georgia,
+    serif;
+}
+.vsr span {
+  display: block;
+  font-size: 0.7rem;
+  opacity: 0.85;
+  margin-top: 6px;
+}
+
+.panel {
+  margin: 0 0 18px;
+}
+.panel[hidden] {
+  display: none;
+}
+.panel textarea {
+  width: 100%;
+}
+.acts {
+  margin-top: 12px;
+}
+#vseg {
+  margin: 14px 0 0;
+}
+.fold {
+  margin: 12px 0 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--fg);
+  font-size: 0.92rem;
+}
+.fold > summary {
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding: 13px 16px;
+  font-weight: 500;
+}
+.fold > summary::-webkit-details-marker {
+  display: none;
+}
+.fold > summary::after {
+  content: "+";
+  color: var(--mut);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+.fold[open] > summary::after {
+  content: "\2212";
+}
+.fb {
+  padding: 0 16px 16px;
+}
+.fb .seg {
+  margin-bottom: 12px;
+}
+.fb .ysub {
+  margin: 18px 0 10px;
+}
+.edit .eact {
+  margin-top: 12px;
+}
+#dir .btn {
+  padding: 7px 13px;
+  font-size: 0.82rem;
+}
+.warn {
+  color: var(--a);
+  font-weight: 500;
+}
+@media (max-width: 640px) {
+  .tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .tools .btn {
+    width: 100%;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  .acts,
+  #hm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .acts .btn,
+  #hm .btn {
+    justify-content: center;
+    white-space: nowrap;
+  }
+}
+
+/* ===== Design system: one set of sizes, radii, labels and states for every control ===== */
+:root {
+  --h: 40px; /* standard control height */
+  --h-s: 34px; /* compact control height */
+  --r-card: 14px; /* cards, swatches, panels */
+  --r-field: 12px; /* inputs, selects, chips */
+  --gap: 8px; /* gap between controls */
+  --gap-l: 16px; /* gap between groups */
+  --pad: 18px; /* horizontal padding of buttons */
+}
+/* Buttons: pills, one height, one type size */
+.btn,
+.tg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: var(--h);
+  padding: 0 var(--pad);
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.tg,
+.ra .btn,
+#dir .btn,
+#mini .btn {
+  min-height: var(--h-s);
+  padding: 0 14px;
+  font-size: 0.82rem;
+}
+.btn:active,
+.tg:active {
+  transform: scale(0.98);
+}
+/* Segmented controls */
+.seg {
+  padding: 3px;
+  margin-bottom: 14px;
+}
+.seg button {
+  height: calc(var(--h) - 8px);
+  padding: 0 14px;
+  font-size: 0.82rem;
+  border-radius: 999px;
+}
+#vseg {
+  margin: 14px 0 0;
+}
+/* Round icon buttons */
+.go {
+  width: 44px;
+  height: 44px;
+  font-size: 1.05rem;
+}
+.inp.sm .go {
+  width: 36px;
+  height: 36px;
+  font-size: 0.95rem;
+}
+.pl,
+.fv {
+  width: var(--h-s);
+  height: var(--h-s);
+}
+/* Fields: same height, radius and border */
+.opts select,
+#key,
+#pt {
+  border: 1px solid var(--line);
+  border-radius: var(--r-field);
+  background: var(--card);
+  color: var(--fg);
+}
+.opts select {
+  height: var(--h);
+  padding: 0 12px;
+}
+#key {
+  height: var(--h);
+  padding: 0 14px;
+}
+.opts {
+  gap: 12px;
+  margin-bottom: var(--gap-l);
+}
+.sls {
+  gap: 12px;
+}
+/* Cards */
+.fold,
+.lv {
+  border-radius: var(--r-card);
+}
+.ec {
+  border-radius: var(--r-field);
+  min-height: var(--h);
+}
+/* Small caps labels share one style */
+.lab,
+.ysub,
+.opts label {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mut);
+  font-weight: 500;
+}
+.lab {
+  margin: 0 0 14px;
+}
+.ysub {
+  margin: 20px 0 10px;
+}
+.hint {
+  margin-top: 12px;
+}
+/* Keyboard focus: one visible ring everywhere */
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible,
+select:focus-visible,
+input[type="range"]:focus-visible,
+input[type="color"]:focus-visible {
+  outline: 2px solid var(--a);
+  outline-offset: 2px;
+}
+.fold > summary {
+  cursor: pointer;
+}
+@media (max-width: 640px) {
+  .pl,
+  .fv {
+    width: var(--h);
+    height: var(--h);
+  }
+  .act .btn {
+    width: 100%;
+  }
+  #dir {
+    gap: 6px;
+  }
+}
+
+/* ===== v2 additions ===== */
+.hexb{border:0;background:none;padding:0;margin:0;font:inherit;letter-spacing:inherit;color:inherit;cursor:pointer;text-align:left}
+.sw:focus-within{outline:2px solid currentColor;outline-offset:-4px}
+.hexb:focus-visible,.lk:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:4px}
+.cap{margin:-4px 0 16px}
+.okb{color:var(--mut)}
+#bg i{will-change:transform}
+body:not(.glow):not(.amb) #bg i,body.hid #bg i{animation-play-state:paused}
+#cc{display:grid;gap:8px}
+.ccr{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:center;font-size:.8rem;color:var(--mut)}
+.ccr i{display:flex;align-items:center;justify-content:center;gap:4px;height:34px;border-radius:8px;font:600 .8rem Inter,sans-serif;font-style:normal}
+.ccr i b{font-weight:600}
+@media (max-width:640px){.sw .hexb{order:1}}
+
+/* ===== unify remaining controls with the pill-button look ===== */
+.opts select{-webkit-appearance:none;appearance:none;height:var(--h);padding:0 34px 0 16px;border:1px solid var(--line);border-radius:999px;background-color:var(--card);
+  background-image:linear-gradient(45deg,transparent 50%,var(--mut) 50%),linear-gradient(135deg,var(--mut) 50%,transparent 50%);
+  background-position:calc(100% - 19px) 50%,calc(100% - 14px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;
+  font:500 .88rem Inter,system-ui,sans-serif;color:var(--fg);cursor:pointer;text-overflow:ellipsis;transition:border-color .25s var(--ease),transform .25s var(--ease)}
+.opts select:hover{border-color:var(--fg)}
+.opts select:active{transform:scale(.98)}
+.chips{gap:8px;margin:16px 0 18px}
+.chip{display:inline-flex;align-items:center;min-height:var(--h-s);padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:.82rem;font-weight:500;color:var(--fg);transition:all .25s var(--ease)}
+.chip:hover{border-color:var(--fg);transform:translateY(-1px)}
+.chip:active{transform:scale(.98)}
+.fold{transition:border-color .25s var(--ease)}
+.fold:hover{border-color:var(--fg)}
+.fold>summary{min-height:var(--h);padding-top:0;padding-bottom:0}
+input[type=range]{-webkit-appearance:none;appearance:none;height:24px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;margin-top:-7px;border-radius:50%;background:var(--card);border:2px solid var(--a);transition:transform .2s var(--ease)}
+input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.12)}
+input[type=range]::-moz-range-track{height:6px;border-radius:999px;background:var(--line)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--card);border:2px solid var(--a)}
+@media (max-width:640px){.opts select{padding:0 28px 0 12px;background-position:calc(100% - 15px) 50%,calc(100% - 10px) 50%}}
+</style>
+</head>
+<body>
+<div id="bg"><i></i><i></i><i></i><i></i></div>
+<div id="mini"><span id="mnow"></span><button class="btn pri" id="mbtn">❚❚</button></div>
+<div id="amb"><p id="atitle"></p><p id="anow"></p><span>Tap or press Esc to exit. The screen stays awake.</span></div>
+<main>
+<header><span class="logo">Moodboard</span><div class="hr"><button class="tg" id="glow">Glow</button><button class="tg" id="ambb">Ambient</button><button class="tg" id="th">Dark</button></div></header>
+
+<div class="L">
+<h1>What does it <em>feel</em> like?</h1>
+<div class="inp"><input id="q" placeholder="rainy sunday, cozy, a little nostalgic" maxlength="80" autocomplete="off"><button class="go" id="go" aria-label="Generate">→</button></div>
+<div class="chips" id="chips"></div>
+<div class="row tools"><button class="btn" id="bsong">Song or artist</button><button class="btn" id="bpaste">Paste text</button><button class="btn" id="up">Photo</button><button class="btn" id="mm">Right now</button><input type="file" id="ph" accept="image/*" hidden></div>
+<p class="note cap">Song builds a vibe from a track · Paste reads the mood of your writing · Photo pulls colors and feeling · Right now uses your time and weather.</p>
+<div class="panel" id="sp" hidden><div class="inp sm"><input id="sq" placeholder="A song or an artist you love" maxlength="80" autocomplete="off"><button class="go" id="sgo" aria-label="Build a vibe from this song or artist">→</button></div></div>
+<div class="panel" id="pd" hidden><textarea id="pt" maxlength="4000" placeholder="Paste a journal entry, poem or chat. We read the mood, not the words."></textarea><div class="row"><button class="btn pri" id="ptg">Read the mood</button></div><p class="note">The text is only used to read its mood and is not saved here.</p></div>
+
+
+<p class="lab">Palette</p>
+<div class="pal" id="pal"></div>
+<div class="seg" id="vseg"></div>
+<div class="row acts"><button class="btn" id="cpall">Copy hex</button><button class="btn" id="cpcss">Copy CSS</button><button class="btn" id="cptw">Tailwind</button><button class="btn" id="cpjs">JSON</button><button class="btn" id="pst">Studio</button><button class="btn" id="star">☆ Save</button></div>
+<p class="hint" id="hint" aria-live="polite">Tap a color to copy its hex.</p>
+<details class="fold" id="ft"><summary>Fine-tune colors</summary><div class="fb"><div class="edit on" id="edit"></div><p class="ysub">Harmony</p><div class="row" id="hm"></div><p class="ysub">Contrast (WCAG)</p><div id="cc"></div></div></details>
+<details class="fold" id="pvd"><summary>Live preview</summary><div class="fb"><div class="seg" id="lvseg"></div><div class="lv" id="lv"></div></div></details>
+</div>
+<div class="R">
+
+<section>
+<p class="lab">Direction</p>
+<p class="tempo" id="tempo"></p>
+<p class="genres" id="genres"></p>
+<p class="blurb" id="blurb"></p>
+<div class="row" id="dir"></div>
+</section>
+
+<section>
+<p class="lab">Playlist</p>
+<details class="fold" id="od"><summary>Tune the playlist</summary><div class="fb"><div class="sls"><label><span>Mellow</span><input type="range" id="s1" min="0" max="100" value="50" aria-label="Energy"><span>Upbeat</span></label><label><span>Familiar</span><input type="range" id="s2" min="0" max="100" value="50" aria-label="Familiarity"><span>Deep cuts</span></label></div>
+<div class="opts"><label>Songs<select id="n"><option>10</option><option selected>15</option><option>30</option></select></label>
+<label>Era<select id="era"><option value="">Any</option><option>60s</option><option>70s</option><option>80s</option><option>90s</option><option>2000s</option><option>2010s</option><option>2020s</option></select></label>
+<label>Language<select id="lang"><option value="">Any</option><option>English</option><option>Spanish</option><option>French</option><option>German</option><option>Portuguese</option><option>Italian</option><option>Turkish</option><option>Azerbaijani</option><option>Russian</option><option>Arabic</option><option>Hindi</option><option>Korean</option><option>Japanese</option></select></label></div>
+</div></details>
+<p class="ysub">Open songs in</p><div class="seg" id="svc"></div>
+<div><button class="btn pri" id="gen">Make me a playlist</button></div>
+<div id="out"></div>
+<p class="note" id="pnote" aria-live="polite">Songs are suggested for the mood, so double-check versions when you open them.</p>
+</section>
+
+<section>
+<details class="fold" id="sv"><summary>Saved</summary><div class="fb"><div class="seg" id="hseg"></div>
+<div id="hl"></div></div></details>
+</section>
+</div>
+
+<footer><span>Made for good moods</span><button class="tg" id="share">Share link</button></footer>
+</main>
+<div id="ov"><div class="sheet">
+<div class="shead"><div class="seg" id="kseg"></div><button class="tg" id="pcl">Close</button></div>
+<div class="seg" id="sseg"></div><div class="seg" id="zseg"></div>
+<div class="pvw"><img id="pimg" alt="Preview"></div>
+<div class="row sact"><a class="btn pri" id="pdl">Download PNG</a><button class="btn" id="psh" style="display:none">Share / Save</button></div>
+<p class="note" id="pnt"></p></div></div>
+<script>
+var API = "/api"; /* Vercel functions in /api */
+var lastHash = "", aiTok = 0;
+var $ = function (i) {
+  return document.getElementById(i);
+};
+var P = {
+  calm: [200, 45, 62, ["ambient", "lo-fi", "acoustic"], "60–80"],
+  chill: [190, 40, 60, ["lo-fi", "chillhop", "downtempo"], "70–90"],
+  sad: [225, 35, 40, ["indie folk", "piano", "slowcore"], "55–75"],
+  melancholy: [230, 30, 42, ["dream pop", "piano", "sad indie"], "60–80"],
+  heartbreak: [350, 45, 38, ["sad pop", "soul", "singer-songwriter"], "60–85"],
+  happy: [48, 90, 60, ["pop", "funk", "disco"], "110–130"],
+  joy: [45, 90, 60, ["pop", "soul", "indie pop"], "110–130"],
+  energetic: [10, 90, 55, ["dance", "electro", "punk"], "130–160"],
+  hype: [340, 90, 55, ["trap", "hip-hop", "EDM"], "130–150"],
+  romantic: [345, 60, 58, ["r&b", "soul", "bossa nova"], "65–90"],
+  sexy: [335, 65, 40, ["alt r&b", "slow jams", "trip-hop"], "70–100"],
+  love: [350, 65, 58, ["r&b", "love songs", "soft pop"], "70–95"],
+  angry: [0, 80, 40, ["metal", "hard rock", "punk"], "140–180"],
+  dark: [260, 40, 25, ["dark ambient", "industrial", "synthwave"], "80–120"],
+  night: [250, 50, 30, ["synthwave", "night drive", "deep house"], "95–120"],
+  cozy: [28, 55, 55, ["acoustic", "folk", "jazz"], "70–95"],
+  rainy: [210, 30, 48, ["lo-fi", "jazz", "piano"], "60–85"],
+  summer: [35, 95, 60, ["reggae", "tropical house", "pop"], "100–125"],
+  beach: [185, 70, 60, ["surf rock", "reggae", "tropical house"], "95–120"],
+  nostalgic: [30, 50, 55, ["80s pop", "oldies", "city pop"], "85–115"],
+  focus: [215, 35, 50, ["instrumental", "post-rock", "classical"], "70–100"],
+  study: [210, 35, 52, ["lo-fi", "classical", "ambient"], "60–90"],
+  dreamy: [285, 45, 68, ["dream pop", "shoegaze", "ambient"], "70–100"],
+  party: [310, 90, 58, ["dance pop", "house", "hip-hop"], "120–135"],
+  forest: [135, 40, 35, ["folk", "ambient", "nature sounds"], "60–90"],
+  sunset: [18, 85, 58, ["indie", "soft rock", "chillwave"], "80–105"],
+  ocean: [200, 70, 48, ["ambient", "post-rock", "chillwave"], "65–95"],
+  winter: [205, 35, 72, ["piano", "choral", "indie folk"], "60–85"],
+  spooky: [275, 60, 22, ["dark ambient", "goth", "horror synth"], "70–110"],
+};
+Object.assign(P, {
+  sunrise: [30, 90, 62, ["folk pop", "acoustic", "indie"], "85–110"],
+  morning: [50, 80, 70, ["acoustic", "indie pop", "soft rock"], "80–110"],
+  coffee: [25, 45, 40, ["jazz", "bossa nova", "acoustic"], "70–100"],
+  road: [25, 60, 50, ["rock", "americana", "indie rock"], "100–130"],
+  workout: [5, 85, 50, ["hip-hop", "EDM", "rock"], "130–160"],
+  gym: [5, 85, 50, ["hip-hop", "EDM", "rock"], "130–160"],
+  wedding: [330, 40, 80, ["love songs", "acoustic", "soul"], "70–100"],
+  nature: [120, 50, 45, ["folk", "ambient", "indie folk"], "60–100"],
+  city: [220, 20, 45, ["indie", "city pop", "house"], "90–120"],
+  neon: [300, 100, 55, ["synthwave", "electro", "dance"], "100–130"],
+  vintage: [35, 40, 55, ["oldies", "soul", "jazz"], "80–120"],
+  jazz: [30, 50, 45, ["jazz", "bebop", "cool jazz"], "80–140"],
+  lonely: [225, 25, 35, ["sad indie", "ambient", "piano"], "55–80"],
+  hopeful: [50, 70, 62, ["indie pop", "folk pop", "soul"], "85–115"],
+  confident: [15, 80, 50, ["hip-hop", "pop", "funk"], "95–125"],
+  peaceful: [170, 35, 68, ["ambient", "classical", "new age"], "50–75"],
+  magical: [270, 55, 60, ["cinematic", "orchestral", "dream pop"], "70–100"],
+  epic: [10, 70, 35, ["orchestral", "cinematic", "post-rock"], "80–140"],
+  gloomy: [220, 15, 32, ["trip-hop", "post-punk", "dark ambient"], "70–100"],
+  tropical: [165, 80, 52, ["tropical house", "reggaeton", "reggae"], "95–125"],
+  autumn: [22, 70, 45, ["indie folk", "acoustic", "singer-songwriter"], "70–100"],
+  spring: [110, 60, 65, ["indie pop", "folk", "bossa nova"], "85–115"],
+  rain: [210, 30, 48, ["lo-fi", "jazz", "piano"], "60–85"],
+  sleep: [240, 30, 28, ["ambient", "piano", "sleep"], "40–65"],
+  drive: [260, 50, 35, ["synthwave", "indie rock", "night drive"], "95–125"],
+});
+Object.assign(P, {
+  sunny: [48, 90, 62, ["indie pop", "funk", "surf rock"], "100–125"],
+  cloudy: [215, 15, 58, ["indie", "lo-fi", "dream pop"], "70–100"],
+  foggy: [210, 12, 62, ["ambient", "post-rock", "trip-hop"], "60–90"],
+  drizzly: [205, 28, 52, ["lo-fi", "jazz", "indie folk"], "65–90"],
+  snowy: [205, 35, 75, ["piano", "indie folk", "ambient"], "60–85"],
+  stormy: [240, 35, 28, ["post-rock", "dark ambient", "metal"], "70–120"],
+  cold: [200, 40, 65, ["indie folk", "ambient", "piano"], "60–90"],
+  hot: [20, 85, 55, ["reggaeton", "tropical house", "funk"], "100–125"],
+  afternoon: [42, 55, 62, ["indie pop", "soft rock", "bossa nova"], "85–110"],
+  evening: [20, 70, 50, ["soft rock", "soul", "indie"], "80–105"],
+});
+var CH = [
+  "rainy sunday",
+  "late night drive",
+  "cozy and nostalgic",
+  "sunset on the beach",
+  "sexy heartbreak",
+  "focus mode",
+];
+var SV = [
+  [
+    "Spotify",
+    function (q) {
+      return "https://open.spotify.com/search/" + q;
+    },
+  ],
+  [
+    "Apple Music",
+    function (q) {
+      return "https://music.apple.com/search?term=" + q;
+    },
+  ],
+  [
+    "YouTube Music",
+    function (q) {
+      return "https://music.youtube.com/search?q=" + q;
+    },
+  ],
+];
+var svc = 0,
+  tracks = [],
+  plName = "",
+  cur = null;
+function hash(s) {
+  var h = 7;
+  for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 100003;
+  return h;
+}
+function hsl(h, s, l) {
+  h = ((h % 360) + 360) % 360;
+  s = Math.max(8, Math.min(92, s)) / 100;
+  l = Math.max(10, Math.min(92, l)) / 100;
+  var a = s * Math.min(l, 1 - l),
+    f = function (n) {
+      var k = (n + h / 30) % 12,
+        c = l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1));
+      return Math.round(255 * c)
+        .toString(16)
+        .padStart(2, "0");
+    };
+  return "#" + f(0) + f(8) + f(4);
+}
+function ink(x) {
+  var r = parseInt(x.substr(1, 2), 16),
+    g = parseInt(x.substr(3, 2), 16),
+    b = parseInt(x.substr(5, 2), 16);
+  return r * 0.299 + g * 0.587 + b * 0.114 > 150 ? "#16140f" : "#fff";
+}
+var SYN = {
+  anxious:"dark",anxiety:"dark",stress:"dark",stressed:"dark",tired:"sleep",sleepy:"sleep",lazy:"chill",relax:"calm",relaxed:"calm",relaxing:"calm",
+  peace:"peaceful",quiet:"calm",excited:"energetic",pumped:"hype",lively:"energetic",fun:"happy",cheerful:"happy",joyful:"joy",upbeat:"happy",
+  blue:"sad",down:"sad",depressed:"sad",grief:"sad",cry:"sad",crying:"sad",breakup:"heartbreak",missing:"lonely",alone:"lonely",
+  nostalgia:"nostalgic",memories:"nostalgic",retro:"vintage",old:"vintage",midnight:"night",dusk:"sunset",dawn:"sunrise",
+  walk:"nature",hike:"nature",travel:"road",trip:"road",rage:"angry",mad:"angry",fury:"angry",sensual:"sexy",date:"romantic",crush:"romantic",
+  dance:"party",club:"party",concentrate:"focus",work:"focus",reading:"study",homework:"study",tea:"cozy",fireplace:"cozy",
+  yagmur:"rainy",yagmurlu:"rainy",mutlu:"happy",xosbext:"happy",huzun:"sad",huzunlu:"sad",kederli:"sad",qemli:"sad",qəmli:"sad",
+  ask:"love",sevgi:"love",mehebbet:"love",gece:"night",gecə:"night",yaz:"summer",yay:"summer",kis:"winter",qis:"winter",deniz:"ocean",deniz:"ocean",
+  sahil:"beach",gunes:"sunny",gunesli:"sunny",gunbatimi:"sunset",sakin:"calm",sakit:"calm",romantik:"romantic",enerjik:"energetic",parti:"party",
+  yalniz:"lonely",tek:"lonely",nostalji:"nostalgic",kahve:"coffee",ders:"study",dars:"study",calisma:"focus",odak:"focus",yol:"road",
+  orman:"forest",mese:"forest",kar:"snowy",qar:"snowy",sonbahar:"autumn",payiz:"autumn",bahar:"spring",sabah:"morning",aksam:"evening",axsam:"evening",
+  ogle:"afternoon",sevinc:"joy",kizgin:"angry",qezebli:"angry",karanlik:"dark",qaranliq:"dark",ruya:"dreamy",sicak:"hot",soguk:"cold",
+  bulutlu:"cloudy",sisli:"foggy",firtina:"stormy",kulek:"stormy"
+};
+function toks(t) {
+  return String(t || "").toLowerCase().replace(/ı/g,"i").replace(/ə/g,"e").replace(/ö/g,"o").replace(/ü/g,"u").replace(/ş/g,"s").replace(/ç/g,"c").replace(/ğ/g,"g")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"").split(/[^a-z]+/).filter(Boolean);
+}
+function ed1(a, b) {
+  if (Math.abs(a.length - b.length) > 1) return false;
+  var i = 0, j = 0, d = 0;
+  while (i < a.length && j < b.length) {
+    if (a[i] === b[j]) { i++; j++; continue; }
+    if (++d > 1) return false;
+    if (a.length > b.length) i++; else if (a.length < b.length) j++; else { i++; j++; }
+  }
+  return d + (a.length - i) + (b.length - j) <= 1;
+}
+function lookupP(w) {
+  if (P[w]) return P[w];
+  if (SYN[w] && P[SYN[w]]) return P[SYN[w]];
+  var st = [w.replace(/(ing|ed|es|s|ish|ness)$/, ""), w.replace(/y$/, ""), w + "y"];
+  for (var i = 0; i < st.length; i++) {
+    var c = st[i];
+    if (c.length < 3) continue;
+    if (P[c]) return P[c];
+    if (SYN[c] && P[SYN[c]]) return P[SYN[c]];
+  }
+  if (w.length >= 5 && STOP.indexOf(w) < 0) {
+    var ks = Object.keys(P).concat(Object.keys(SYN));
+    for (var k = 0; k < ks.length; k++)
+      if (ks[k].length >= 5 && ed1(w, ks[k])) return P[ks[k]] || P[SYN[ks[k]]];
+  }
+  return null;
+}
+function canAI() { return true; }
+async function aiPalette(t, r) {
+  var my = ++aiTok;
+  try {
+    var j = await callG('Read the mood of this phrase: "' + t.replace(/"/g, "'") + '". Return ONLY JSON: {"colors":["#rrggbb","#rrggbb","#rrggbb","#rrggbb","#rrggbb"],"genres":["...","...","..."],"bpm":"70-90"} with 5 harmonious colors that capture the mood, 3 music genres and a typical BPM range.');
+    if (my !== aiTok || cur !== r || $("q").value.trim() !== t.trim()) return;
+    var cs = (j.colors || []).map(String).filter(function (c) { return /^#[0-9a-f]{6}$/i.test(c); }).slice(0, 5);
+    if (cs.length < 3) throw 0;
+    var n = 0;
+    while (cs.length < 5) { var hs = h2hsl(cs[n % 3]); cs.push(hsl(hs[0] + 20, hs[1] - 8, hs[2] + (n++ % 2 ? -12 : 12))); }
+    paint({ cols: cs, g: (j.genres || []).slice(0, 4).map(function (g) { return String(g).slice(0, 30); }), bpm: String(j.bpm || "80–110").slice(0, 16), names: null, blurb: "", matched: true }, t);
+    $("hint").textContent = "No keyword match, so the mood was read for you.";
+  } catch (e) {
+    if (my === aiTok) $("hint").textContent = "No mood words recognised, so this is a surprise palette.";
+  }
+}
+function build(t) {
+  var hit = [];
+  toks(t).forEach(function (w) {
+    var p = lookupP(w);
+    if (p) hit.push(p);
+  });
+  var h,
+    s,
+    l,
+    g = [],
+    bpm;
+  if (hit.length) {
+    var x = 0,
+      y = 0;
+    s = 0;
+    l = 0;
+    hit.forEach(function (p) {
+      x += Math.cos((p[0] * Math.PI) / 180);
+      y += Math.sin((p[0] * Math.PI) / 180);
+      s += p[1];
+      l += p[2];
+      g = g.concat(p[3]);
+    });
+    h = (Math.atan2(y, x) * 180) / Math.PI;
+    s /= hit.length;
+    l /= hit.length;
+    bpm = hit[0][4];
+    g = g
+      .filter(function (v, i) {
+        return g.indexOf(v) === i;
+      })
+      .slice(0, 4);
+  } else {
+    var k = hash(t || "x");
+    h = k % 360;
+    s = 40 + (k % 40);
+    l = 42 + (k % 22);
+    g = ["indie", "pop", "lo-fi"];
+    bpm = "80–120";
+  }
+  var cols = [];
+  hit.forEach(function (p) {
+    var c = hsl(p[0], p[1], p[2]);
+    if (cols.indexOf(c) < 0) cols.push(c);
+  });
+  cols = cols.slice(0, 5);
+  var fill = [
+      [28, -8, 16],
+      [-28, 5, -14],
+      [180, -18, 4],
+      [55, -22, 26],
+    ],
+    fi = 0;
+  while (cols.length < 5) {
+    var f = fill[fi++ % 4];
+    cols.push(hsl(h + f[0], s + f[1], l + f[2]));
+  }
+  return { cols: cols, g: g, bpm: bpm, names: null, blurb: "", matched: hit.length > 0 };
+}
+function copy(t, m) {
+  try {
+    navigator.clipboard.writeText(t).then(
+      function () {
+        $("hint").textContent = m;
+      },
+      function () {
+        $("hint").textContent = t;
+      },
+    );
+  } catch (e) {
+    $("hint").textContent = t;
+  }
+}
+function render(t) {
+  curId = null;
+  tracks = [];
+  plName = "";
+  drawOut();
+  var r = build(t);
+  paint(r, t);
+  updStar();
+  lastHash = encodeURIComponent(t);
+  try {
+    location.hash = lastHash;
+  } catch (e) {}
+  if (!r.matched && t && t.trim()) {
+    $("hint").textContent = "No mood words recognised, so this is a surprise palette." + (canAI() ? " Reading the mood…" : "");
+    if (canAI()) aiPalette(t, r);
+  }
+}
+var variant = "orig",
+  locks = [];
+function h2hsl(x) {
+  var r = parseInt(x.substr(1, 2), 16) / 255,
+    g = parseInt(x.substr(3, 2), 16) / 255,
+    b = parseInt(x.substr(5, 2), 16) / 255,
+    mx = Math.max(r, g, b),
+    mn = Math.min(r, g, b),
+    l = (mx + mn) / 2,
+    d = mx - mn,
+    h = 0,
+    s = 0;
+  if (d) {
+    s = d / (1 - Math.abs(2 * l - 1));
+    h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    h *= 60;
+    if (h < 0) h += 360;
+  }
+  return [h, s * 100, l * 100];
+}
+function vary(x) {
+  if (variant === "orig") return x;
+  var a = h2hsl(x),
+    h = a[0],
+    s = a[1],
+    l = a[2];
+  if (variant === "pastel") {
+    s = Math.min(s, 70) * 0.8 + 10;
+    l = l * 0.35 + 60;
+  } else if (variant === "vivid") {
+    s = Math.min(100, s * 1.2 + 30);
+    l = l * 0.5 + 25;
+  } else if (variant === "muted") {
+    s = s * 0.4;
+    l = l * 0.8 + 8;
+  } else if (variant === "dark") {
+    s = s * 0.9;
+    l = l * 0.45 + 4;
+  }
+  return hsl(h, s, l);
+}
+function drawVar() {
+  var v = $("vseg");
+  v.innerHTML = "";
+  [
+    ["orig", "Original"],
+    ["pastel", "Pastel"],
+    ["vivid", "Vivid"],
+    ["muted", "Muted"],
+    ["dark", "Dark"],
+  ].forEach(function (o) {
+    var b = document.createElement("button");
+    b.textContent = o[1];
+    b.className = variant === o[0] ? "on" : "";
+    b.onclick = function () {
+      variant = o[0];
+      drawVar();
+      if (cur) paint(cur, $("q").value);
+    };
+    v.appendChild(b);
+  });
+}
+function rlum(x) {
+  var c = [1, 3, 5].map(function (i) {
+    var v = parseInt(x.substr(i, 2), 16) / 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+}
+function ratio(a, b) {
+  var x = rlum(a), y = rlum(b);
+  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+}
+function setAccent(c) {
+  var dark = document.documentElement.getAttribute("data-theme") === "dark",
+    bg = dark ? "#121110" : "#f3efe8",
+    hs = h2hsl(c), l = hs[2], n = 0, a = c, rt = document.documentElement.style;
+  while (ratio(a, bg) < 4.5 && n++ < 45) {
+    l += dark ? 2 : -2;
+    a = hsl(hs[0], hs[1], l);
+  }
+  rt.setProperty("--a", a);
+  rt.setProperty("--ai", ink(a));
+}
+function badge(x) { return x >= 7 ? "AAA" : x >= 4.5 ? "AA" : x >= 3 ? "large only" : "fail"; }
+function cc(r) {
+  var e = $("cc");
+  if (!e) return;
+  e.innerHTML = "";
+  r.cols.forEach(function (c) {
+    var w = ratio(c, "#ffffff"), k = ratio(c, "#111111"), row = el("div", "ccr"), sw = el("i");
+    sw.style.background = c;
+    var a = el("b", "", "Aa"), b = el("b", "", "Aa");
+    a.style.color = "#fff";
+    b.style.color = "#111";
+    sw.appendChild(a);
+    sw.appendChild(b);
+    row.appendChild(sw);
+    row.appendChild(el("span", "", c.toUpperCase() + " · white " + w.toFixed(1) + " " + badge(w) + " · black " + k.toFixed(1) + " " + badge(k)));
+    e.appendChild(row);
+  });
+}
+function paint(r, t) {
+  var prev = cur;
+  r.base = r.base || r.cols.slice();
+  if (prev && prev !== r && prev.base)
+    locks.forEach(function (l, i) {
+      if (l && prev.base[i] && i < r.base.length) {
+        r.base[i] = prev.base[i];
+        if (r.names && prev.names) r.names[i] = prev.names[i];
+      }
+    });
+  r.cols = r.base.map(vary);
+  cur = r;
+  var pal = $("pal");
+  if (pal.children.length !== r.cols.length) {
+    pal.innerHTML = "";
+    r.cols.forEach(function () {
+      pal.appendChild(document.createElement("div")).className = "sw";
+    });
+  }
+  [].forEach.call(pal.children, function (b, i) {
+    var c = r.cols[i];
+    b.style.background = c;
+    b.style.color = ink(c);
+    b.innerHTML = "";
+    b.className = "sw" + (locks[i] ? " lkd" : "");
+    var lk = document.createElement("button");
+    lk.className = "lk";
+    lk.textContent = locks[i] ? "Locked" : "Lock";
+    lk.title = "Keep this color when you regenerate";
+    lk.setAttribute("aria-pressed", locks[i] ? "true" : "false");
+    lk.setAttribute("aria-label", "Lock color " + (i + 1));
+    lk.onclick = function (e) {
+      e.stopPropagation();
+      locks[i] = !locks[i];
+      lk.setAttribute("aria-pressed", locks[i] ? "true" : "false");
+      lk.textContent = locks[i] ? "Locked" : "Lock";
+      b.classList.toggle("lkd", !!locks[i]);
+    };
+    b.appendChild(lk);
+    var h = document.createElement("button");
+    h.className = "hexb";
+    h.textContent = c.toUpperCase();
+    h.setAttribute("aria-label", "Copy " + c.toUpperCase() + (r.names && r.names[i] ? " (" + r.names[i] + ")" : ""));
+    b.appendChild(h);
+    if (r.names && r.names[i]) {
+      var n = document.createElement("small");
+      n.textContent = r.names[i];
+      n.style.cssText = "opacity:.75;font-weight:400;margin-top:2px";
+      b.appendChild(n);
+    }
+    b.onclick = function () {
+      copy(c.toUpperCase(), "Copied " + c.toUpperCase());
+    };
+  });
+  cc(r);
+  var rt = document.documentElement.style;
+  setAccent(r.cols[0]);
+  [].forEach.call($("bg").children, function (e, k) {
+    e.style.setProperty("--c", r.cols[k % r.cols.length]);
+  });
+  $("atitle").textContent = plName || t || "";
+  var tp = $("tempo"), tsm = document.createElement("small");
+  tp.textContent = String(r.bpm || "");
+  tsm.textContent = "BPM";
+  tp.appendChild(tsm);
+  $("genres").textContent = r.g.join("  /  ");
+  $("blurb").textContent = r.blurb || "";
+  $("blurb").style.display = r.blurb ? "block" : "none";
+  var q = encodeURIComponent(r.g.slice(0, 2).join(" ") + " " + (t || "vibes"));
+  $("dir").innerHTML = "";
+  SV.forEach(function (s) {
+    var a = document.createElement("a");
+    a.className = "btn";
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = s[0].replace(" Music", "") + " ↗";a.title = "Search " + s[0];
+    a.href = s[1](q);
+    $("dir").appendChild(a);
+  });
+}
+function drawSvc() {
+  $("svc").innerHTML = "";
+  SV.forEach(function (s, i) {
+    var b = document.createElement("button");
+    b.textContent = s[0];
+    b.className = i === svc ? "on" : "";
+    b.onclick = function () {
+      svc = i;
+      drawSvc();
+      drawOut(true);
+    };
+    $("svc").appendChild(b);
+  });
+}
+function jp(url) {
+  return new Promise(function (res, rej) {
+    var n = "jp" + Date.now() + Math.floor(Math.random() * 1e4),
+      sc = document.createElement("script"),
+      to;
+    function cl() {
+      clearTimeout(to);
+      delete window[n];
+      sc.remove();
+    }
+    window[n] = function (d) {
+      cl();
+      res(d);
+    };
+    sc.onerror = function () {
+      cl();
+      rej(new Error("failed"));
+    };
+    to = setTimeout(function () {
+      cl();
+      rej(new Error("timeout"));
+    }, 8000);
+    sc.src = url + "&callback=" + n;
+    document.head.appendChild(sc);
+  });
+}
+var au = new Audio(),
+  pi = -1,
+  allMode = false,
+  rows = [],
+  segs = [];
+function norm(x) {
+  return String(x || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\(.*?\)|\[.*?\]/g, " ")
+    .replace(/\b(feat|ft|featuring)\b.*$/, " ")
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+/* Looks a song up in the iTunes catalogue: t.ok = it exists, t.pv = preview url or 'none'. A failed request leaves t.ok undefined (unknown). */
+function ij(term) {
+  function ok(r) { if (!r.ok) throw new Error("itunes"); return r.json(); }
+  if (API) return fetch(API + "/itunes?term=" + term).then(ok);
+  var u = "https://itunes.apple.com/search?entity=song&limit=10&term=" + term;
+  return fetch(u).then(ok).catch(function () { return jp(u); });
+}
+function lookup(t) {
+  if (t.ok !== undefined) return Promise.resolve(t);
+  return ij(encodeURIComponent(t.title + " " + t.artist)).then(function (d) {
+    var nt = norm(t.title),
+      na = norm(String(t.artist).split(/,|&| and | feat\.? | ft\.? /i)[0]);
+    var hits = (d.results || []).filter(function (r) {
+      var rt = norm(r.trackName),
+        ra = norm(r.artistName);
+      return (
+        nt.length > 1 &&
+        na.length > 1 &&
+        (rt === nt || rt.indexOf(nt) > -1 || nt.indexOf(rt) > -1) &&
+        (ra.indexOf(na) > -1 || na.indexOf(ra) > -1)
+      );
+    });
+    var withPv = hits.filter(function (r) {
+      return r.previewUrl;
+    })[0];
+    t.ok = hits.length > 0;
+    t.pv = withPv ? withPv.previewUrl : "none";
+    return t;
+  });
+}
+function getPv(t) {
+  return lookup(t)
+    .then(function () {
+      return t.pv || "none";
+    })
+    .catch(function () {
+      return "none";
+    });
+}
+function stopAll() {
+  au.pause();
+  pi = -1;
+  allMode = false;
+  setUI();
+}
+function setUI(loading) {
+  rows.forEach(function (b, i) {
+    var t = tracks[i];
+    b.textContent =
+      t && t.pv === "none"
+        ? "–"
+        : i === pi
+          ? loading && au.paused
+            ? "…"
+            : au.paused
+              ? "▶"
+              : "❚❚"
+          : "▶";
+  });
+  segs.forEach(function (g, i) {
+    g.firstChild.style.width = (i < pi ? 100 : 0) + "%";
+  });
+  var pa = $("pall");
+  if (pa)
+    pa.textContent =
+      pi >= 0 && allMode && !au.paused ? "Pause" : pi >= 0 && allMode ? "Resume" : "Play all";
+  var nw = pi >= 0 && tracks[pi] ? tracks[pi].title + " · " + tracks[pi].artist : "";
+  if ($("pnow")) $("pnow").textContent = nw;
+  $("anow").textContent = nw;
+  $("mnow").textContent = nw;
+  $("mbtn").textContent = au.paused ? "▶" : "❚❚";
+  document.body.classList.toggle("playing", pi >= 0);
+}
+var endless = false,
+  more = null;
+async function playIdx(i, all) {
+  if (i >= tracks.length) {
+    if (all && endless) {
+      if ($("pnow")) $("pnow").textContent = "Finding more songs…";
+      var n = await ensureMore();
+      if (n && i < tracks.length) return playIdx(i, true);
+    }
+    stopAll();
+    return;
+  }
+  if (i < 0) {
+    stopAll();
+    return;
+  }
+  pi = i;
+  allMode = !!all;
+  setUI(true);
+  if (all && endless && i >= tracks.length - 2) ensureMore();
+  var u = await getPv(tracks[i]);
+  if (pi !== i) return;
+  if (u === "none") {
+    if (all) return playIdx(i + 1, true);
+    pi = -1;
+    setUI();
+    return;
+  }
+  au.src = u;
+  try {
+    await au.play();
+  } catch (e) {
+    pi = -1;
+    setUI();
+  }
+}
+au.addEventListener("play", function () {
+  setUI();
+});
+au.addEventListener("pause", function () {
+  setUI();
+});
+au.addEventListener("ended", function () {
+  if (allMode && pi >= 0) playIdx(pi + 1, true);
+  else {
+    pi = -1;
+    setUI();
+  }
+});
+au.addEventListener("timeupdate", function () {
+  if (pi >= 0 && segs[pi] && au.duration)
+    segs[pi].firstChild.style.width = (au.currentTime / au.duration) * 100 + "%";
+});
+function optsText() {
+  var n = +$("n").value,
+    e = $("era").value,
+    l = $("lang").value,
+    o = ["Make it exactly " + n + " tracks."];
+  if (e) o.push("Choose songs released in the " + e + ".");
+  if (l) o.push("Prefer songs sung in " + l + ".");
+  return o.join(" ");
+}
+function gmsg(st, d) {
+  if (st === 401 || st === 403) return "Something went wrong on our side. Try again shortly.";
+  if (st === 429) return "Rate limit reached. Wait a minute and try again.";
+  if (st >= 500) return "The service is having trouble. Try again shortly.";
+  var m = d && d.error && (d.error.message || d.error);
+  return typeof m === "string" ? m : "Request failed (HTTP " + st + ").";
+}
+function neterr(e) {
+  return e instanceof TypeError ? new Error("Could not connect. Check your connection.") : e;
+}
+async function ask(content, vision) {
+  var res, d;
+  try {
+    res = await fetch(API + "/mood", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ content: content, vision: !!vision }) });
+  } catch (e) { throw neterr(e); }
+  d = await res.json().catch(function () { return {}; });
+  if (!res.ok) throw new Error(gmsg(res.status, d));
+  return parseJ(d.content || "");
+}
+function callG(prompt) {
+  return ask(prompt, false);
+}
+async function swap(i, btn) {
+  var old = tracks[i],
+    mood = $("q").value.trim() || plName || "good vibes";
+  btn.textContent = "Swapping…";
+  btn.disabled = true;
+  var list = tracks
+    .map(function (t, k) {
+      return k + 1 + ". " + t.title + " - " + t.artist;
+    })
+    .join("\n");
+  var p =
+    'A playlist for the mood "' +
+    mood +
+    '" currently has these songs:\n' +
+    list +
+    "\nReplace song " +
+    (i + 1) +
+    ' ("' +
+    old.title +
+    '" by ' +
+    old.artist +
+    ") with a different real, commercially released song that fits the mood better. It must not already be in the list and must not be by an artist already used twice. " +
+    sliderText() +
+    " " +
+    optsText().replace(/Make it exactly \d+ tracks\.\s?/, "") +
+    ' Use the exact correct title and artist; never invent songs. Return ONLY JSON: {"title":"...","artist":"..."}';
+  try {
+    var j = await callG(p, {
+      type: "OBJECT",
+      properties: { title: { type: "STRING" }, artist: { type: "STRING" } },
+      required: ["title", "artist"],
+    });
+    if (!j.title || !j.artist) throw new Error("No song came back.");
+    if (pi === i) stopAll();
+    tracks[i] = { title: j.title, artist: j.artist };
+    drawOut(true);
+    if (curId) saveCur();
+    $("pnote").textContent = "Swapped song " + (i + 1) + ".";
+    verifyTracks(false);
+  } catch (e) {
+    btn.textContent = "Swap song";
+    btn.disabled = false;
+    $("pnote").textContent = "Swap failed: " + (e.message || e);
+  }
+}
+function addSeg(i) {
+  var st = $("out").querySelector(".strip");
+  if (!st) return;
+  var g = document.createElement("div");
+  g.className = "sg";
+  g.style.setProperty("--c", cur ? cur.cols[i % cur.cols.length] : "#888");
+  g.appendChild(document.createElement("i"));
+  st.appendChild(g);
+  segs.push(g);
+}
+function addRow(t, i, quiet) {
+  var o = $("out"),
+    d = document.createElement("div");
+  d.className = "trk";
+  d.style.setProperty("--i", quiet ? 0 : Math.min(i, 14));
+  d.innerHTML =
+    '<span class="n"></span><div class="t"></div><button class="pl" title="30-second preview">▶</button><button class="pl" title="More options" aria-label="More options">⋯</button><div class="ra"><button class="btn">Swap song</button><button class="btn">More like this</button><a class="btn" target="_blank" rel="noopener"></a></div>';
+  d.children[0].textContent = i + 1;
+  d.children[1].textContent = t.title;
+  var sm = document.createElement("small");
+  sm.textContent = t.artist;
+  d.children[1].appendChild(sm);
+  var ra = d.children[4];
+  rows.push(d.children[2]);
+  d.children[2].onclick = function () {
+    if (t.pv === "none") return;
+    if (pi === i && au.src === t.pv) {
+      au.paused ? au.play() : au.pause();
+    } else playIdx(i, false);
+  };
+  d.children[3].onclick = function () {
+    d.classList.toggle("open");
+    this.classList.toggle("on");
+  };
+  ra.children[0].onclick = function () {
+    swap(i, this);
+  };
+  ra.children[1].onclick = function () {
+    moreLike(t);
+  };
+  ra.children[2].href = SV[svc][1](encodeURIComponent(t.title + " " + t.artist));
+  ra.children[2].textContent = "Open in " + SV[svc][0] + " ↗";
+  var act = o.querySelector(".act");
+  act ? o.insertBefore(d, act) : o.appendChild(d);
+  addSeg(i);
+}
+async function extend() {
+  var mood = $("q").value.trim() || plName || "good vibes",
+    list = tracks
+      .map(function (t, k) {
+        return k + 1 + ". " + t.title + " - " + t.artist;
+      })
+      .join("\n");
+  var p =
+    'Continue a playlist for the mood "' +
+    mood +
+    '". Current songs in order:\n' +
+    list +
+    "\nAdd 8 more real, commercially released songs that keep the same vibe and flow naturally from the last song. None may repeat a listed song; at most 2 songs per artist in total. " +
+    sliderText() +
+    " " +
+    optsText().replace(/Make it exactly \d+ tracks\.\s?/, "") +
+    ' Use exact titles and artists; never invent songs. Return ONLY JSON: {"tracks":[{"title":"...","artist":"..."}]}';
+  var j = await callG(p, {
+    type: "OBJECT",
+    properties: {
+      tracks: {
+        type: "ARRAY",
+        items: {
+          type: "OBJECT",
+          properties: { title: { type: "STRING" }, artist: { type: "STRING" } },
+          required: ["title", "artist"],
+        },
+      },
+    },
+    required: ["tracks"],
+  });
+  var have = {};
+  tracks.forEach(function (t) {
+    have[(t.title + "|" + t.artist).toLowerCase()] = 1;
+  });
+  var add = (j.tracks || [])
+    .filter(function (t) {
+      return t && t.title && t.artist && !have[(t.title + "|" + t.artist).toLowerCase()];
+    })
+    .slice(0, 8);
+  add.forEach(function (t) {
+    tracks.push({ title: t.title, artist: t.artist });
+    addRow(tracks[tracks.length - 1], tracks.length - 1, true);
+  });
+  if (curId) saveCur();
+  verifyTracks(false);
+  return add.length;
+}
+function ensureMore() {
+  if (!more)
+    more = extend()
+      .catch(function (e) {
+        $("pnote").textContent = "Endless mode: " + (e.message || e);
+        return 0;
+      })
+      .then(function (n) {
+        more = null;
+        return n;
+      });
+  return more;
+}
+function moreLike(t) {
+  var txt = "Like " + t.title;
+  $("q").value = txt;
+  render(txt);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  gen(null, null, t);
+}
+function drawOut(quiet) {
+  var o = $("out");
+  au.pause();
+  pi = -1;
+  allMode = false;
+  rows = [];
+  segs = [];
+  o.innerHTML = "";
+  if (!tracks.length) {
+    setUI();
+    return;
+  }
+  var h = document.createElement("h2");
+  h.textContent = plName || "Your playlist";
+  o.appendChild(h);
+  var bar = document.createElement("div");
+  bar.className = "pbar";
+  bar.innerHTML =
+    '<button class="btn pri" id="pall">Play all</button><button class="btn' +
+    (endless ? " on" : "") +
+    '" id="endl" title="Keep finding new songs when the list ends">Endless</button><span class="pnow" id="pnow" aria-live="polite"></span>';
+  o.appendChild(bar);
+  var st = document.createElement("div");
+  st.className = "strip";
+  o.appendChild(st);
+  var a = document.createElement("div");
+  a.className = "row act";
+  a.innerHTML =
+    '<button class="btn" id="cpl">Copy tracklist</button><a class="btn" target="_blank" rel="noopener" href="https://www.tunemymusic.com/">Save as playlist via TuneMyMusic ↗</a>';
+  o.appendChild(a);
+  $("pall").onclick = function () {
+    if (pi >= 0 && allMode) {
+      au.paused ? au.play() : au.pause();
+    } else playIdx(0, true);
+  };
+  $("endl").onclick = function () {
+    endless = !endless;
+    this.classList.toggle("on", endless);
+  };
+  $("cpl").onclick = function () {
+    copy(
+      (plName ? plName + "\n" : "") +
+        tracks
+          .map(function (t, i) {
+            return i + 1 + ". " + t.artist + " - " + t.title;
+          })
+          .join("\n"),
+      "Tracklist copied",
+    );
+  };
+  tracks.forEach(function (t, i) {
+    addRow(t, i, quiet);
+  });
+  $("pnote").textContent =
+    "Tap ⋯ on a song to swap it or build a playlist like it. Paste the copied list into TuneMyMusic to make a real playlist.";
+  setUI();
+}
+/* history */
+var curId = null,
+  hist = [],
+  hview = "recent";
+function loadH() {
+  try {
+    hist = JSON.parse(localStorage.getItem("mh") || "[]");
+  } catch (e) {
+    hist = [];
+  }
+}
+function saveH() {
+  hist = hist.filter(function (x, i) {
+    return x.fav || i < 150;
+  });
+  try {
+    localStorage.setItem("mh", JSON.stringify(hist));
+  } catch (e) {}
+}
+function saveCur(fav) {
+  if (!cur) return;
+  var e = {
+    id: curId || (curId = Date.now() + ""),
+    text: $("q").value.trim(),
+    cols: cur.cols,
+    names: cur.names || null,
+    g: cur.g,
+    bpm: cur.bpm,
+    blurb: cur.blurb || "",
+    plName: plName,
+    tracks: tracks.map(function (t) {
+      return { title: t.title, artist: t.artist };
+    }),
+    ts: Date.now(),
+  };
+  var i = hist
+    .map(function (x) {
+      return x.id;
+    })
+    .indexOf(e.id);
+  if (i >= 0) {
+    e.fav = fav === undefined ? hist[i].fav : fav;
+    hist[i] = e;
+  } else {
+    e.fav = !!fav;
+    hist.unshift(e);
+  }
+  saveH();
+  renderH();
+  $("sv").open = true;
+  updStar();
+}
+function updStar() {
+  var e = hist.filter(function (x) {
+    return x.id === curId;
+  })[0];
+  $("star").textContent = e && e.fav ? "★ Saved" : "☆ Save";
+}
+function restore(e) {
+  locks = [];
+  curId = e.id;
+  $("q").value = e.text;
+  plName = e.plName || "";
+  tracks = e.tracks || [];
+  paint({ cols: e.cols, names: e.names, g: e.g, bpm: e.bpm, blurb: e.blurb }, e.text);
+  drawOut(true);
+  updStar();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+var STOP = [
+  "the",
+  "and",
+  "with",
+  "for",
+  "like",
+  "that",
+  "this",
+  "feel",
+  "vibe",
+  "mood",
+  "some",
+  "just",
+  "very",
+  "but",
+  "are",
+  "you",
+  "your",
+  "from",
+  "into",
+  "mode",
+  "songs",
+  "playlist",
+];
+function el(tag, cls, txt) {
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (txt !== undefined) e.textContent = txt;
+  return e;
+}
+function renderYear(l) {
+  var it = hist.slice().sort(function (a, b) {
+    return a.ts - b.ts;
+  });
+  if (!it.length) {
+    l.appendChild(el("p", "empty", "Save a few vibes and your year will take shape here."));
+    return;
+  }
+  var songs = 0,
+    favs = 0,
+    wc = {},
+    gc = {};
+  it.forEach(function (e) {
+    songs += (e.tracks || []).length;
+    if (e.fav) favs++;
+    (e.text || "")
+      .toLowerCase()
+      .split(/[^a-z]+/)
+      .forEach(function (w) {
+        if (w.length > 2 && STOP.indexOf(w) < 0) wc[w] = (wc[w] || 0) + 1;
+      });
+    (e.g || []).forEach(function (g) {
+      g = String(g).toLowerCase();
+      gc[g] = (gc[g] || 0) + 1;
+    });
+  });
+  var st = el("div", "ystat");
+  [
+    [it.length, "vibes"],
+    [songs, "songs"],
+    [favs, "favorites"],
+  ].forEach(function (p) {
+    var d = el("div");
+    d.appendChild(el("b", "", p[0]));
+    d.appendChild(el("span", "", p[1]));
+    st.appendChild(d);
+  });
+  l.appendChild(st);
+  var strip = el("div", "ystrip");
+  it.forEach(function (e) {
+    var c = el("div"),
+      n = e.cols.length;
+    c.style.background =
+      "linear-gradient(180deg," +
+      e.cols
+        .map(function (x, i) {
+          return x + " " + (i * 100) / n + "% " + ((i + 1) * 100) / n + "%";
+        })
+        .join(",") +
+      ")";
+    c.title = e.plName || e.text || "";
+    strip.appendChild(c);
+  });
+  l.appendChild(strip);
+  var fd = function (t) {
+    return new Date(t).toLocaleDateString(undefined, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+  var dr = el("div", "ydates");
+  dr.appendChild(el("span", "", fd(it[0].ts)));
+  dr.appendChild(el("span", "", fd(it[it.length - 1].ts)));
+  l.appendChild(dr);
+  var top = function (o, k) {
+    return Object.keys(o)
+      .sort(function (a, b) {
+        return o[b] - o[a] || a.localeCompare(b);
+      })
+      .slice(0, k);
+  };
+  var tw = top(wc, 8);
+  if (tw.length) {
+    l.appendChild(el("p", "ysub", "Most common moods"));
+    var pl = el("div", "pills");
+    tw.forEach(function (w) {
+      var p = el("span", "pill", w);
+      p.appendChild(el("small", "", "×" + wc[w]));
+      pl.appendChild(p);
+    });
+    l.appendChild(pl);
+  }
+  var tg = top(gc, 6);
+  if (tg.length) {
+    l.appendChild(el("p", "ysub", "Top genres"));
+    var mx = gc[tg[0]];
+    tg.forEach(function (g) {
+      var r = el("div", "gbar");
+      r.appendChild(el("span", "", g));
+      var bar = el("div"),
+        i = el("i");
+      i.style.width = (gc[g] / mx) * 100 + "%";
+      bar.appendChild(i);
+      r.appendChild(bar);
+      r.appendChild(el("span", "", gc[g]));
+      l.appendChild(r);
+    });
+  }
+}
+var mixSel = [];
+function renderH() {
+  var sg = $("hseg");
+  sg.innerHTML = "";
+  [
+    ["recent", "Recent"],
+    ["fav", "Favorites"],
+    ["mix", "Blend two"],
+    ["year", "Your year"],
+  ].forEach(function (v) {
+    var b = document.createElement("button");
+    b.textContent = v[1];
+    b.className = hview === v[0] ? "on" : "";
+    b.onclick = function () {
+      hview = v[0];
+      renderH();
+    };
+    sg.appendChild(b);
+  });
+  var l = $("hl");
+  l.innerHTML = "";
+  if (hview === "year") {
+    renderYear(l);
+    return;
+  }
+  var items = hist
+    .filter(function (x) {
+      return hview === "fav" ? x.fav : true;
+    })
+    .slice(0, 12);
+  if (hview === "mix") {
+    var p = document.createElement("p");
+    p.className = "empty";
+    p.textContent =
+      hist.length < 2
+        ? "Save at least two vibes first."
+        : "Pick two vibes to blend into a new one.";
+    l.appendChild(p);
+  } else if (!items.length) {
+    l.innerHTML =
+      '<p class="empty">' +
+      (hview === "fav" ? "Star a vibe to keep it here." : "Your vibes will show up here.") +
+      "</p>";
+    return;
+  }
+  items.forEach(function (e) {
+    var d = document.createElement("div");
+    d.className = "hi" + (hview === "mix" && mixSel.indexOf(e.id) > -1 ? " sel" : "");
+    var b = document.createElement("button");
+    b.className = "hb";
+    var m = document.createElement("div");
+    m.className = "mini";
+    e.cols.forEach(function (c) {
+      var i = document.createElement("i");
+      i.style.background = c;
+      m.appendChild(i);
+    });
+    var t = document.createElement("span");
+    t.textContent = e.plName || e.text || "Untitled";
+    var sm = document.createElement("small");
+    sm.textContent =
+      (e.plName && e.text ? e.text + " · " : "") +
+      (e.tracks && e.tracks.length ? e.tracks.length + " songs" : "palette only");
+    t.appendChild(sm);
+    b.appendChild(m);
+    b.appendChild(t);
+    b.onclick =
+      hview === "mix"
+        ? function () {
+            var k = mixSel.indexOf(e.id);
+            if (k > -1) mixSel.splice(k, 1);
+            else {
+              mixSel.push(e.id);
+              if (mixSel.length > 2) mixSel.shift();
+            }
+            renderH();
+          }
+        : function () {
+            restore(e);
+          };
+    var f = document.createElement("button");
+    f.className = "fv" + (e.fav ? " on" : "");
+    f.textContent = e.fav ? "★" : "☆";
+    f.setAttribute("aria-label", "Favorite");
+    f.onclick = function () {
+      e.fav = !e.fav;
+      saveH();
+      renderH();
+      updStar();
+    };
+    d.appendChild(b);
+    d.appendChild(f);
+    l.appendChild(d);
+  });
+  if (hview === "mix" && hist.length >= 2) {
+    var bt = document.createElement("button");
+    bt.className = "btn pri";
+    bt.style.marginTop = "14px";
+    bt.id = "mixgo";
+    bt.textContent = "Blend these two";
+    bt.disabled = mixSel.length !== 2;
+    bt.onclick = function () {
+      var a = hist.filter(function (x) {
+          return x.id === mixSel[0];
+        })[0],
+        c = hist.filter(function (x) {
+          return x.id === mixSel[1];
+        })[0];
+      if (!a || !c) return;
+      var txt = (a.text || a.plName) + " + " + (c.text || c.plName);
+      $("q").value = txt;
+      render(txt);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      gen(null, [a, c]);
+    };
+    l.appendChild(bt);
+  }
+}
+/* poster */
+function wrapT(x, t, mw, max) {
+  var w = t.split(" "),
+    l = [],
+    ln = "";
+  w.forEach(function (wd) {
+    var tt = ln ? ln + " " + wd : wd;
+    if (x.measureText(tt).width > mw && ln) {
+      l.push(ln);
+      ln = wd;
+    } else ln = tt;
+  });
+  if (ln) l.push(ln);
+  return l.slice(0, max);
+}
+function drawPoster() {
+  var W = 1080,
+    H = 1350,
+    c = document.createElement("canvas");
+  c.width = W;
+  c.height = H;
+  var x = c.getContext("2d");
+  var cs = getComputedStyle(document.documentElement),
+    bg = cs.getPropertyValue("--bg").trim() || "#f3efe8",
+    fg = cs.getPropertyValue("--fg").trim() || "#1d1b18",
+    mu = cs.getPropertyValue("--mut").trim() || "#7a746b";
+  x.fillStyle = bg;
+  x.fillRect(0, 0, W, H);
+  var n = cur.cols.length,
+    bw = W / n,
+    bh = 700;
+  cur.cols.forEach(function (col, i) {
+    x.fillStyle = col;
+    x.fillRect(Math.floor(i * bw), 0, Math.ceil(bw) + 1, bh);
+    x.fillStyle = ink(col);
+    var nm = cur.names && cur.names[i];
+    x.font = "500 22px Inter,sans-serif";
+    x.fillText(col.toUpperCase(), i * bw + 22, bh - (nm ? 54 : 26));
+    if (nm) {
+      x.globalAlpha = 0.75;
+      x.font = "400 20px Inter,sans-serif";
+      x.fillText(nm, i * bw + 22, bh - 26);
+      x.globalAlpha = 1;
+    }
+  });
+  var ttl = plName || $("q").value.trim() || "Moodboard",
+    fs = 80;
+  while (fs > 40) {
+    x.font = "400 " + fs + "px Fraunces,Georgia,serif";
+    if (x.measureText(ttl).width < W - 120) break;
+    fs -= 4;
+  }
+  x.fillStyle = fg;
+  x.fillText(ttl, 60, bh + 110);
+  var y = bh + 160;
+  if (cur.blurb) {
+    x.fillStyle = mu;
+    x.font = "italic 400 28px Fraunces,Georgia,serif";
+    wrapT(x, cur.blurb, W - 120, 2).forEach(function (l) {
+      x.fillText(l, 60, y);
+      y += 38;
+    });
+  }
+  y += 22;
+  x.font = "500 26px Inter,sans-serif";
+  tracks.slice(0, 7).forEach(function (t, i) {
+    x.fillStyle = mu;
+    x.fillText(String(i + 1).padStart(2, "0"), 60, y);
+    var tx = t.title + "  ·  " + t.artist,
+      over = false;
+    x.fillStyle = fg;
+    while (x.measureText(tx).width > W - 220 && tx.length > 4) {
+      tx = tx.slice(0, -2);
+      over = true;
+    }
+    x.fillText(tx + (over ? "…" : ""), 120, y);
+    y += 42;
+  });
+  x.fillStyle = mu;
+  x.font = "500 20px Inter,sans-serif";
+  x.fillText("MOODBOARD", 60, H - 48);
+  return c;
+}
+
+function parseJ(raw) {
+  raw = raw.replace(/```json|```/g, "").trim();
+  try {
+    return JSON.parse(raw);
+  } catch (e) {}
+  var tr = [],
+    re = /"title"\s*:\s*"((?:[^"\\]|\\.)*)"\s*,\s*"artist"\s*:\s*"((?:[^"\\]|\\.)*)"/g,
+    m;
+  while ((m = re.exec(raw)))
+    tr.push({ title: m[1].replace(/\\"/g, '"'), artist: m[2].replace(/\\"/g, '"') });
+  var nm = /"name"\s*:\s*"((?:[^"\\]|\\.)*)"/.exec(raw);
+  if (!tr.length) throw new Error("Could not read the answer. Try again.");
+  return { name: nm ? nm[1] : "", tracks: tr };
+}
+function sliderText() {
+  var a = +$("s1").value,
+    b = +$("s2").value,
+    o = [];
+  if (a < 35) o.push("Lean clearly mellow and slow.");
+  else if (a > 65) o.push("Lean clearly upbeat and energetic.");
+  if (b < 35) o.push("Choose mostly famous, familiar songs.");
+  else if (b > 65) o.push("Choose mostly lesser-known deep cuts and hidden gems.");
+  return o.join(" ");
+}
+async function gen(img, mix, seed) {
+  var text = $("q").value.trim() || "good vibes",
+    r = build(img ? "" : text),
+    b = $("gen");
+  b.disabled = true;
+  b.textContent = img ? "Reading your photo…" : "Picking songs…";
+  au.pause();
+  var desc = img ? "the attached photo (its colors, setting and feeling)" : '"' + text + '"',
+    sug = img ? "" : " Suggested genres: " + r.g.join(", ") + ". Tempo: about " + r.bpm + " BPM.";
+  if (mix) {
+    desc =
+      'a blend of two moods. Mood A: "' +
+      (mix[0].text || mix[0].plName) +
+      '" (colors ' +
+      mix[0].cols.join(" ") +
+      '). Mood B: "' +
+      (mix[1].text || mix[1].plName) +
+      '" (colors ' +
+      mix[1].cols.join(" ") +
+      "). Combine their feelings, sounds and colors so both stay recognisable";
+    sug = "";
+  }
+  if (seed && seed.raw) {
+    desc =
+      'the world of "' +
+      seed.raw +
+      '" (a song or an artist: first work out which it is). Build the mood, sound and colors around it. If it is a song, start the playlist with that exact song and then choose songs that share its feel. If it is an artist, start with their best-known fitting track and mix in similar artists, with at most 2 songs by the artist itself';
+    sug = "";
+  } else if (seed) {
+    desc =
+      'the feel of the song "' +
+      seed.title +
+      '" by ' +
+      seed.artist +
+      " (its mood, tempo, sound and colors). Start the playlist with that exact song, then choose songs that match its feel";
+    sug = "";
+  }
+  var lk = [];
+  locks.forEach(function (l, k) {
+    if (l && cur && cur.base && cur.base[k]) lk.push(cur.base[k]);
+  });
+  var lockText = lk.length
+    ? " These colors are locked and must appear in the palette exactly as written: " +
+      lk.join(", ") +
+      ". Build the other colors to harmonize with them."
+    : "";
+  var prompt =
+    "You are a careful music curator. Build a playlist for this mood: " +
+    desc +
+    "." +
+    sug +
+    " " +
+    sliderText() +
+    " " +
+    optsText() +
+    lockText +
+    '\nRules: only include real, commercially released songs you are highly confident exist, with the exact correct title and primary artist. Never guess or invent. Mix well-known and lesser-known tracks (unless told otherwise), at most 2 songs per artist, no duplicates, ordered so the playlist flows. Songs must genuinely fit the mood in feel, tempo and lyrics. Also give the playlist a short, evocative name (max 4 words, no quotes) and a mood title of 2 to 5 words. Then make a color palette of 6 hex colors that captures EVERY visual element or feeling in the mood (for example, a sunset on the beach needs sky, sun, sea and sand colors, not just shades of one hue); give each color a short evocative name. Add 3 fitting genres, a tempo range as text like 70–90, and a one-sentence description of the vibe.\nReturn ONLY JSON: {"name":"...","mood":"...","blurb":"...","genres":["..."],"bpm":"...","palette":[{"hex":"#rrggbb","name":"..."}],"tracks":[{"title":"...","artist":"..."}]}';
+  try {
+    var content = img
+      ? [
+          { type: "image_url", image_url: { url: "data:image/jpeg;base64," + img } },
+          { type: "text", text: prompt },
+        ]
+      : prompt;
+    var j = await ask(content, !!img);
+    if (img && j.mood) {
+      text = j.mood;
+      $("q").value = text;
+    }
+    plName = j.name || "";
+    var pp = (j.palette || [])
+      .filter(function (c) {
+        return c && /^#[0-9a-f]{6}$/i.test((c.hex || "").trim());
+      })
+      .slice(0, 8);
+    if (pp.length >= 3) {
+      var gg = (j.genres || []).filter(Boolean).slice(0, 4);
+      paint(
+        {
+          cols: pp.map(function (c) {
+            return c.hex.trim().toLowerCase();
+          }),
+          names: pp.map(function (c) {
+            return c.name || "";
+          }),
+          g: gg.length ? gg : r.g,
+          bpm: (j.bpm || "").trim() || r.bpm,
+          blurb: j.blurb || "",
+        },
+        text,
+      );
+    } else if (img) paint(build(text), text);
+    tracks = (j.tracks || [])
+      .filter(function (t) {
+        return t && t.title && t.artist;
+      })
+      .slice(0, +$("n").value);
+    if (!tracks.length) $("pnote").textContent = "Nothing came back. Try again.";
+    drawOut();
+    curId = null;
+    if (tracks.length) saveCur(false);
+    else updStar();
+    if (tracks.length) verifyTracks(true);
+  } catch (e) {
+    $("pnote").textContent = "Couldn't make the playlist: " + (e.message || e);
+  }
+  b.disabled = false;
+  b.textContent = "Remake playlist";
+}
+async function moment() {
+  var h = new Date().getHours(),
+    part =
+      h < 5
+        ? "late night"
+        : h < 11
+          ? "morning"
+          : h < 17
+            ? "afternoon"
+            : h < 21
+              ? "evening"
+              : "night",
+    w = "",
+    note = "Used the time of day (allow location to add weather).";
+  $("hint").textContent = "Checking your moment…";
+  try {
+    var pos = await new Promise(function (a, b) {
+      navigator.geolocation.getCurrentPosition(a, b, { timeout: 7000 });
+    });
+    var r = await fetch(
+        "https://api.open-meteo.com/v1/forecast?latitude=" +
+          pos.coords.latitude +
+          "&longitude=" +
+          pos.coords.longitude +
+          "&current=temperature_2m,weather_code",
+      ),
+      d = await r.json(),
+      c = d.current.weather_code,
+      t = d.current.temperature_2m;
+    w =
+      (c === 0
+        ? "sunny"
+        : c < 4
+          ? "cloudy"
+          : c < 50
+            ? "foggy"
+            : c < 60
+              ? "drizzly"
+              : c < 70
+                ? "rainy"
+                : c < 80
+                  ? "snowy"
+                  : c < 83
+                    ? "rainy"
+                    : c < 90
+                      ? "snowy"
+                      : "stormy") + (t < 5 ? " cold" : t > 28 ? " hot" : "");
+    note = "Based on your local time and weather.";
+  } catch (e) {}
+  var ph = (w + " " + part).trim();
+  $("q").value = ph;
+  render(ph);
+  $("hint").textContent = note;
+  gen();
+}
+$("mm").onclick = moment;
+$("mbtn").onclick = function () {
+  au.paused ? au.play() : au.pause();
+};
+$("up").onclick = function () {
+  $("ph").click();
+};
+$("ph").onchange = function () {
+  var f = this.files[0];
+  if (!f) return;
+  var im = new Image();
+  im.onload = function () {
+    var sc = Math.min(1, 640 / Math.max(im.width, im.height)),
+      cv = document.createElement("canvas");
+    cv.width = Math.round(im.width * sc);
+    cv.height = Math.round(im.height * sc);
+    cv.getContext("2d").drawImage(im, 0, 0, cv.width, cv.height);
+    URL.revokeObjectURL(im.src);
+    gen(cv.toDataURL("image/jpeg", 0.82).split(",")[1]);
+  };
+  im.src = URL.createObjectURL(f);
+  this.value = "";
+};
+
+function lum(x) {
+  return (
+    parseInt(x.substr(1, 2), 16) * 0.299 +
+    parseInt(x.substr(3, 2), 16) * 0.587 +
+    parseInt(x.substr(5, 2), 16) * 0.114
+  );
+}
+function rng(sd) {
+  return function () {
+    sd = (sd * 1664525 + 1013904223) % 4294967296;
+    return sd / 4294967296;
+  };
+}
+function seedOf() {
+  return hash((plName || $("q").value || "x") + cur.cols.join(""));
+}
+function grainFx(x, W, H, amt) {
+  var n = document.createElement("canvas");
+  n.width = n.height = 256;
+  var nx = n.getContext("2d"),
+    id = nx.createImageData(256, 256);
+  for (var i = 0; i < id.data.length; i += 4) {
+    var v = Math.random() * 255;
+    id.data[i] = id.data[i + 1] = id.data[i + 2] = v;
+    id.data[i + 3] = 255;
+  }
+  nx.putImageData(id, 0, 0);
+  x.save();
+  x.globalAlpha = amt;
+  x.globalCompositeOperation = "overlay";
+  x.fillStyle = x.createPattern(n, "repeat");
+  x.fillRect(0, 0, W, H);
+  x.restore();
+}
+function drawCover(style) {
+  var W = 1080,
+    H = 1080,
+    c = document.createElement("canvas");
+  c.width = W;
+  c.height = H;
+  var x = c.getContext("2d"),
+    cols = cur.cols,
+    n = cols.length,
+    ttl = plName || $("q").value.trim() || "Moodboard",
+    r = rng(seedOf() + 7);
+  function title(color, label) {
+    var fs = 108,
+      lines,
+      full = ttl.replace(/\s+/g, " ").trim();
+    while (fs > 56) {
+      x.font = "400 " + fs + "px Fraunces,Georgia,serif";
+      lines = wrapT(x, full, W - 140, 3);
+      if (
+        lines.join(" ") === full &&
+        lines.every(function (l) {
+          return x.measureText(l).width <= W - 140;
+        })
+      )
+        break;
+      fs -= 6;
+    }
+    x.fillStyle = color;
+    var y = H - 80 - (lines.length - 1) * fs * 1.04;
+    lines.forEach(function (l) {
+      x.fillText(l, 70, y);
+      y += fs * 1.04;
+    });
+    if (label) {
+      x.globalAlpha = 0.8;
+      x.font = "500 22px Inter,sans-serif";
+      x.fillText("MOODBOARD", 70, 96);
+      x.globalAlpha = 1;
+    }
+  }
+  if (style === "gradient" || style === "grain") {
+    var g = x.createLinearGradient(0, 0, W, H);
+    cols.forEach(function (cc, i) {
+      g.addColorStop(n > 1 ? i / (n - 1) : 0, cc);
+    });
+    x.fillStyle = g;
+    x.fillRect(0, 0, W, H);
+    [
+      [0.2, 0.15, cols[1 % n]],
+      [0.85, 0.9, cols[n - 1]],
+    ].forEach(function (b) {
+      var rg = x.createRadialGradient(b[0] * W, b[1] * H, 0, b[0] * W, b[1] * H, W * 0.7);
+      rg.addColorStop(0, b[2] + "aa");
+      rg.addColorStop(1, b[2] + "00");
+      x.fillStyle = rg;
+      x.fillRect(0, 0, W, H);
+    });
+    if (style === "grain") grainFx(x, W, H, 0.3);
+    title(ink(cols[n - 1]), true);
+  } else if (style === "shapes") {
+    var sorted = cols.slice().sort(function (a, b) {
+        return lum(b) - lum(a);
+      }),
+      bg = sorted[0],
+      dark = sorted[n - 1],
+      pool = cols.filter(function (cc) {
+        return cc !== bg;
+      });
+    if (!pool.length) pool = [dark];
+    x.fillStyle = bg;
+    x.fillRect(0, 0, W, H);
+    for (var gy = 0; gy < 2; gy++)
+      for (var gx = 0; gx < 3; gx++) {
+        var s = 360,
+          col = pool[Math.floor(r() * pool.length)],
+          t = Math.floor(r() * 5),
+          o = Math.floor(r() * 4);
+        x.save();
+        x.beginPath();
+        x.rect(gx * s, gy * s, s, s);
+        x.clip();
+        x.translate(gx * s, gy * s);
+        x.fillStyle = col;
+        x.strokeStyle = col;
+        if (t === 0) {
+          x.beginPath();
+          x.arc(s / 2, s / 2, s / 2, 0, 7);
+          x.fill();
+        } else if (t === 1) {
+          var cx = o === 1 || o === 2 ? s : 0,
+            cy = o === 2 || o === 3 ? s : 0;
+          x.beginPath();
+          x.moveTo(cx, cy);
+          x.arc(cx, cy, s, (o * Math.PI) / 2, ((o + 1) * Math.PI) / 2);
+          x.closePath();
+          x.fill();
+        } else if (t === 2) {
+          var hx = [s / 2, s, s / 2, 0][o],
+            hy = [0, s / 2, s, s / 2][o];
+          x.beginPath();
+          x.moveTo(hx, hy);
+          x.arc(hx, hy, s / 2, (o * Math.PI) / 2, (o * Math.PI) / 2 + Math.PI);
+          x.closePath();
+          x.fill();
+        } else if (t === 3) {
+          x.fillRect(0, 0, s, s);
+        } else {
+          x.lineWidth = s * 0.2;
+          x.beginPath();
+          x.arc(s / 2, s / 2, s * 0.34, 0, 7);
+          x.stroke();
+        }
+        x.restore();
+      }
+    x.fillStyle = dark;
+    x.fillRect(0, 720, W, 360);
+    title(ink(dark), false);
+  } else {
+    x.fillStyle = cols[0];
+    x.fillRect(0, 0, W, H);
+    var fg = ink(cols[0]);
+    x.strokeStyle = fg;
+    x.lineWidth = 2;
+    cols.forEach(function (cc, i) {
+      x.fillStyle = cc;
+      x.beginPath();
+      x.arc(92 + i * 58, 110, 22, 0, 7);
+      x.fill();
+      x.stroke();
+    });
+    var fs = 260,
+      lines,
+      full = ttl.replace(/\s+/g, " ").trim();
+    while (fs > 80) {
+      x.font = "400 " + fs + "px Fraunces,Georgia,serif";
+      lines = wrapT(x, full, W - 140, 4);
+      if (
+        lines.join(" ") === full &&
+        lines.every(function (l) {
+          return x.measureText(l).width <= W - 140;
+        })
+      )
+        break;
+      fs -= 8;
+    }
+    x.fillStyle = fg;
+    var y = H - 90 - (lines.length - 1) * fs * 0.95;
+    lines.forEach(function (l) {
+      x.fillText(l, 70, y);
+      y += fs * 0.95;
+    });
+  }
+  return c;
+}
+function drawWall(style, dim) {
+  var ph = dim === "phone",
+    W = ph ? 1170 : 2560,
+    H = ph ? 2532 : 1440,
+    c = document.createElement("canvas");
+  c.width = W;
+  c.height = H;
+  var x = c.getContext("2d"),
+    cols = cur.cols,
+    n = cols.length,
+    r = rng(seedOf() + 3),
+    big = Math.max(W, H);
+  function blobs(k, sz, al) {
+    for (var q = 0; q < k; q++) {
+      var cx = r() * W,
+        cy = r() * H,
+        rad = (0.35 + r() * 0.45) * big * sz,
+        col = cols[q % n],
+        gr = x.createRadialGradient(cx, cy, 0, cx, cy, rad);
+      gr.addColorStop(0, col + al);
+      gr.addColorStop(1, col + "00");
+      x.fillStyle = gr;
+      x.fillRect(0, 0, W, H);
+    }
+  }
+  if (style === "soft") {
+    var g = x.createLinearGradient(0, 0, W * 0.4, H);
+    g.addColorStop(0, cols[0]);
+    g.addColorStop(1, cols[n - 1]);
+    x.fillStyle = g;
+    x.fillRect(0, 0, W, H);
+    blobs(7, ph ? 0.7 : 0.5, "d9");
+    grainFx(x, W, H, 0.18);
+  } else {
+    var gw = ph ? 5 : 9,
+      gh = ph ? 9 : 5,
+      t = document.createElement("canvas");
+    t.width = gw;
+    t.height = gh;
+    var tx = t.getContext("2d");
+    for (var iy = 0; iy < gh; iy++)
+      for (var ix = 0; ix < gw; ix++) {
+        var v = (ix / (gw - 1)) * 0.55 + (iy / (gh - 1)) * 0.75 + (r() - 0.5) * 0.55;
+        tx.fillStyle = cols[((Math.floor(v * n) % n) + n) % n];
+        tx.fillRect(ix, iy, 1, 1);
+      }
+    x.imageSmoothingEnabled = true;
+    x.imageSmoothingQuality = "high";
+    x.drawImage(t, 0, 0, gw, gh, 0, 0, W, H);
+    blobs(3, ph ? 0.55 : 0.4, "88");
+    grainFx(x, W, H, 0.16);
+  }
+  return c;
+}
+var kind = "poster",
+  cst = "gradient",
+  wst = "soft",
+  wdim = "phone",
+  lastUrl = null,
+  lastBlob = null,
+  lastName = "";
+function segSet(id, opts, val, fn) {
+  var e = $(id);
+  e.innerHTML = "";
+  opts.forEach(function (o) {
+    var b = document.createElement("button");
+    b.textContent = o[1];
+    b.className = val === o[0] ? "on" : "";
+    b.onclick = function () {
+      fn(o[0]);
+    };
+    e.appendChild(b);
+  });
+  e.style.display = opts.length ? "" : "none";
+}
+async function renderStudio() {
+  if (!cur) return;
+  segSet(
+    "kseg",
+    [
+      ["poster", "Poster"],
+      ["cover", "Cover"],
+      ["wall", "Wallpaper"],
+    ],
+    kind,
+    function (v) {
+      kind = v;
+      renderStudio();
+    },
+  );
+  segSet(
+    "sseg",
+    kind === "cover"
+      ? [
+          ["gradient", "Gradient"],
+          ["grain", "Grain"],
+          ["shapes", "Shapes"],
+          ["type", "Type"],
+        ]
+      : kind === "wall"
+        ? [
+            ["soft", "Soft"],
+            ["mesh", "Mesh"],
+          ]
+        : [],
+    kind === "cover" ? cst : wst,
+    function (v) {
+      if (kind === "cover") cst = v;
+      else wst = v;
+      renderStudio();
+    },
+  );
+  segSet(
+    "zseg",
+    kind === "wall"
+      ? [
+          ["phone", "Phone"],
+          ["desktop", "Desktop"],
+        ]
+      : [],
+    wdim,
+    function (v) {
+      wdim = v;
+      renderStudio();
+    },
+  );
+  try {
+    await document.fonts.ready;
+  } catch (e) {}
+  var c =
+    kind === "poster" ? drawPoster() : kind === "cover" ? drawCover(cst) : drawWall(wst, wdim);
+  var base =
+    (plName || $("q").value || "moodboard")
+      .replace(/[^a-z0-9]+/gi, "-")
+      .replace(/^-|-$/g, "")
+      .toLowerCase() || "moodboard";
+  lastName = base + "-" + kind + ".png";
+  c.toBlob(function (b) {
+    if (!b) return;
+    if (lastUrl) URL.revokeObjectURL(lastUrl);
+    lastUrl = URL.createObjectURL(b);
+    lastBlob = b;
+    $("pimg").src = lastUrl;
+    $("pdl").href = lastUrl;
+    $("pdl").download = lastName;
+    var f;
+    try {
+      f = new File([b], lastName, { type: "image/png" });
+    } catch (e) {}
+    $("psh").style.display =
+      f && navigator.canShare && navigator.canShare({ files: [f] }) ? "" : "none";
+    $("pnt").textContent =
+      kind === "wall"
+        ? "On a phone, tap Share / Save, choose Save Image, then set it as your wallpaper from Photos."
+        : "";
+  }, "image/png");
+}
+function openStudio() {
+  if (!cur) return;
+  $("ov").className = "on";
+  renderStudio();
+}
+$("psh").onclick = function () {
+  if (!lastBlob) return;
+  var f = new File([lastBlob], lastName, { type: "image/png" });
+  navigator.share({ files: [f], title: plName || "Moodboard" }).catch(function () {});
+};
+$("pst").onclick = openStudio;
+$("pcl").onclick = function () {
+  $("ov").className = "";
+};
+$("ov").onclick = function (e) {
+  if (e.target === this) this.className = "";
+};
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") $("ov").className = "";
+});
+$("star").onclick = function () {
+  var e = hist.filter(function (x) {
+    return x.id === curId;
+  })[0];
+  saveCur(!(e && e.fav));
+};
+function theme(t, save) {
+  document.documentElement.setAttribute("data-theme", t);
+  try {
+    document.querySelector("meta[name=theme-color]").content = t === "dark" ? "#121110" : "#f3efe8";
+  } catch (e) {}
+  $("th").textContent = t === "dark" ? "Light" : "Dark";
+  if (save)
+    try {
+      localStorage.setItem("th", t);
+    } catch (e) {}
+  if (cur) setAccent(cur.cols[0]);
+}
+var st;
+try {
+  st = localStorage.getItem("th");
+} catch (e) {}
+theme(st || (matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light"));
+$("th").onclick = function () {
+  theme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
+};
+try {
+  matchMedia("(prefers-color-scheme:dark)").addEventListener("change", function (e) {
+    var sv;
+    try { sv = localStorage.getItem("th"); } catch (x) {}
+    if (!sv) theme(e.matches ? "dark" : "light");
+  });
+} catch (e) {}
+CH.forEach(function (c) {
+  var b = document.createElement("button");
+  b.className = "chip";
+  b.textContent = c;
+  b.onclick = function () {
+    $("q").value = c;
+    render(c);
+  };
+  $("chips").appendChild(b);
+});
+function run() {
+  var t = $("q").value.trim();
+  if (!t) {
+    t = CH[Math.floor(Math.random() * CH.length)];
+    $("q").value = t;
+  }
+  render(t);
+}
+$("go").onclick = run;
+$("q").onkeydown = function (e) {
+  if (e.key === "Enter") run();
+};
+$("gen").onclick = function () {
+  gen();
+};
+$("cpall").onclick = function () {
+  if (cur)
+    copy(
+      cur.cols
+        .map(function (c) {
+          return c.toUpperCase();
+        })
+        .join(", "),
+      "Copied all colors",
+    );
+};
+$("cpcss").onclick = function () {
+  if (cur)
+    copy(
+      ":root{\n" +
+        cur.cols
+          .map(function (c, i) {
+            return (
+              "  --color-" +
+              (cur.names && cur.names[i]
+                ? cur.names[i]
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/^-|-$/g, "")
+                : i + 1) +
+              ": " +
+              c +
+              ";"
+            );
+          })
+          .join("\n") +
+        "\n}",
+      "Copied CSS variables",
+    );
+};
+function cname(i) {
+  return cur.names && cur.names[i] ? cur.names[i].toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") : "color-" + (i + 1);
+}
+$("cptw").onclick = function () {
+  if (cur) copy("colors: {\n" + cur.cols.map(function (c, i) { return "  '" + cname(i) + "': '" + c + "',"; }).join("\n") + "\n}", "Copied Tailwind colors");
+};
+$("cpjs").onclick = function () {
+  if (!cur) return;
+  var o = {};
+  cur.cols.forEach(function (c, i) { o[cname(i)] = c; });
+  copy(JSON.stringify({ name: plName || $("q").value.trim(), colors: o }, null, 2), "Copied JSON");
+};
+function b64e(o) {
+  var u = new TextEncoder().encode(JSON.stringify(o)),
+    b = "";
+  u.forEach(function (c) {
+    b += String.fromCharCode(c);
+  });
+  return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+function b64d(x) {
+  x = x.replace(/-/g, "+").replace(/_/g, "/");
+  while (x.length % 4) x += "=";
+  var b = atob(x),
+    u = new Uint8Array(b.length);
+  for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i);
+  return JSON.parse(new TextDecoder().decode(u));
+}
+function shareLink() {
+  if (!cur) return;
+  var o = {
+    t: $("q").value.trim(),
+    c: cur.cols.map(function (c) {
+      return c.slice(1);
+    }),
+    n: cur.names || 0,
+    g: cur.g,
+    b: cur.bpm,
+    u: cur.blurb || "",
+    p: plName,
+    k: tracks.map(function (t) {
+      return [t.title, t.artist];
+    }),
+  };
+  var url = location.href.split("#")[0] + "#s=" + b64e(o);
+  copy(
+    url,
+    "Share link copied" +
+      (location.protocol === "file:"
+        ? ". It only works for others if this page is hosted online."
+        : "."),
+  );
+}
+function shareCols(a) {
+  var c = (a || []).map(function (x) { return "#" + String(x); }).filter(function (x) { return /^#[0-9a-f]{6}$/i.test(x); });
+  if (c.length < 2) throw new Error("bad");
+  return c;
+}
+function loadShared() {
+  var h = location.hash.slice(1);
+  if (h.indexOf("s=") !== 0) return false;
+  try {
+    var o = b64d(h.slice(2));
+    curId = null;
+    locks = [];
+    $("q").value = o.t || "";
+    plName = o.p || "";
+    tracks = (o.k || []).map(function (k) {
+      return { title: k[0], artist: k[1] };
+    });
+    paint(
+      {
+        cols: shareCols(o.c),
+        names: o.n || null,
+        g: o.g || [],
+        bpm: o.b || "",
+        blurb: o.u || "",
+      },
+      o.t || "",
+    );
+    drawOut(true);
+    updStar();
+    $("hint").textContent = "A shared vibe. Type your own mood above to make one.";
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+$("share").onclick = shareLink;
+function setGlow(v) {
+  document.body.classList.toggle("glow", v);
+  $("glow").classList.toggle("on", v);
+  try {
+    localStorage.setItem("glow", v ? "1" : "0");
+  } catch (e) {}
+}
+var gl = "1";
+try {
+  gl = localStorage.getItem("glow") || "1";
+} catch (e) {}
+setGlow(gl !== "0");
+$("glow").onclick = function () {
+  setGlow(!document.body.classList.contains("glow"));
+};
+$("ambb").onclick = function () {
+  document.body.classList.add("amb");
+};
+$("amb").onclick = function () {
+  document.body.classList.remove("amb");
+};
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") document.body.classList.remove("amb");
+});
+loadH();
+renderH();
+drawSvc();
+drawVar();
+if (!loadShared()) {
+  var init = "";
+  try {
+    init = decodeURIComponent(location.hash.slice(1));
+  } catch (e) {}
+  $("q").value = init || CH[0];
+  render($("q").value);
+}
+
+/* ---- v2 additions ---- */
+var editing = false,
+  editSkip = false,
+  lvMode = "web",
+  dragI = -1;
+var _paint = paint;
+paint = function (r, t) {
+  _paint(r, t);
+  afterPaint();
+};
+function afterPaint() {
+  if (editing && !editSkip) drawEdit();
+  drawLV();
+}
+function sync(noRedraw, noSave) {
+  if (!cur) return;
+  editSkip = !!noRedraw;
+  try {
+    paint(cur, $("q").value);
+  } finally {
+    editSkip = false;
+  }
+  if (!noSave && curId) saveCur();
+}
+function padLocks() {
+  while (locks.length < cur.base.length) locks.push(false);
+}
+
+/* start from a song or artist */
+function fromSong() {
+  var v = $("sq").value.trim();
+  if (!v) return;
+  var t = ("Like " + v).slice(0, 80);
+  $("q").value = t;
+  render(t);
+  gen(null, null, { raw: v });
+  $("sp").hidden = true;
+  $("bsong").classList.remove("on");
+}
+$("sgo").onclick = fromSong;
+$("sq").onkeydown = function (e) {
+  if (e.key === "Enter") fromSong();
+};
+
+/* paste anything */
+$("ptg").onclick = async function () {
+  var v = $("pt").value.trim(),
+    b = this;
+  if (!v) return;
+  b.disabled = true;
+  b.textContent = "Reading…";
+  try {
+    var j = await callG(
+      'Read the text below and capture its emotional mood and atmosphere as a short phrase of 3 to 8 words that works as a playlist vibe, for example "rainy sunday, cozy, a little nostalgic". Describe the feeling and never quote the text.\n\nText:\n"""' +
+        v.slice(0, 4000) +
+        '"""\nReturn ONLY JSON: {"mood":"..."}',
+      { type: "OBJECT", properties: { mood: { type: "STRING" } }, required: ["mood"] },
+    );
+    var m = (j.mood || "").trim().slice(0, 80);
+    if (!m) throw new Error("No mood came back.");
+    $("q").value = m;
+    render(m);
+    $("hint").textContent = "Mood read from your text.";
+    b.disabled = false;
+    b.textContent = "Read the mood";
+    $("pd").hidden = true;
+    $("bpaste").classList.remove("on");
+    gen();
+  } catch (e) {
+    b.disabled = false;
+    b.textContent = "Read the mood";
+    $("pnote").textContent = "Could not read the mood: " + (e.message || e);
+  }
+};
+
+/* hand editing */
+function mv(a, b) {
+  if (!cur || b < 0 || b >= cur.base.length || a < 0 || a === b) return;
+  padLocks();
+  [cur.base, cur.names, locks].forEach(function (arr) {
+    if (!arr) return;
+    var x = arr.splice(a, 1)[0];
+    arr.splice(b, 0, x);
+  });
+  sync();
+}
+function rmC(i) {
+  if (!cur || cur.base.length <= 2) return;
+  padLocks();
+  cur.base.splice(i, 1);
+  if (cur.names) cur.names.splice(i, 1);
+  locks.splice(i, 1);
+  sync();
+}
+function addC(hex) {
+  if (!cur) return;
+  padLocks();
+  if (!hex) {
+    var a = h2hsl(cur.base[cur.base.length - 1]);
+    hex = hsl(a[0] + 35, a[1], a[2] > 55 ? a[2] - 14 : a[2] + 14);
+  }
+  if (cur.base.length >= 8) {
+    cur.base[cur.base.length - 1] = hex;
+  } else {
+    cur.base.push(hex);
+    if (cur.names) cur.names.push("");
+    locks.push(false);
+  }
+  sync();
+}
+function drawEdit() {
+  var e = $("edit");
+  e.innerHTML = "";
+  if (!cur) return;
+  var ch = el("div", "ech");
+  cur.base.forEach(function (c, i) {
+    var d = el("div", "ec"),
+      code = el("code", "", c.toUpperCase());
+    d.draggable = true;
+    var ci = document.createElement("input");
+    ci.type = "color";
+    ci.value = c;
+    ci.setAttribute("aria-label", "Color " + (i + 1));
+    ci.oninput = function () {
+      cur.base[i] = ci.value;
+      code.textContent = ci.value.toUpperCase();
+      sync(true, true);
+    };
+    ci.onchange = function () {
+      if (curId) saveCur();
+    };
+    var l = el("button", "", "◀"),
+      r = el("button", "", "▶"),
+      x = el("button", "", "✕");
+    l.title = "Move left";
+    r.title = "Move right";
+    x.title = "Remove";
+    l.setAttribute("aria-label", "Move left");
+    r.setAttribute("aria-label", "Move right");
+    x.setAttribute("aria-label", "Remove color");
+    l.onclick = function () {
+      mv(i, i - 1);
+    };
+    r.onclick = function () {
+      mv(i, i + 1);
+    };
+    x.onclick = function () {
+      rmC(i);
+    };
+    d.ondragstart = function (ev) {
+      dragI = i;
+      d.classList.add("drag");
+      try {
+        ev.dataTransfer.effectAllowed = "move";
+        ev.dataTransfer.setData("text/plain", String(i));
+      } catch (_) {}
+    };
+    d.ondragend = function () {
+      d.classList.remove("drag");
+    };
+    d.ondragover = function (ev) {
+      ev.preventDefault();
+      d.classList.add("over");
+    };
+    d.ondragleave = function () {
+      d.classList.remove("over");
+    };
+    d.ondrop = function (ev) {
+      ev.preventDefault();
+      d.classList.remove("over");
+      mv(dragI, i);
+    };
+    [ci, code, l, r, x].forEach(function (n) {
+      d.appendChild(n);
+    });
+    ch.appendChild(d);
+  });
+  e.appendChild(ch);
+  var act = el("div", "eact"),
+    ad = el("button", "btn", "+ Add color");
+  ad.onclick = function () {
+    addC();
+  };
+  act.appendChild(ad);
+  if (window.EyeDropper) {
+    var ey = el("button", "btn", "Eyedropper");
+    ey.onclick = function () {
+      new EyeDropper()
+        .open()
+        .then(function (r) {
+          addC(r.sRGBHex.toLowerCase());
+        })
+        .catch(function () {});
+    };
+    act.appendChild(ey);
+  }
+  e.appendChild(act);
+}
+$("ft").addEventListener("toggle", function () {
+  editing = this.open;
+  if (editing) {
+    variant = "orig";
+    drawVar();
+    if (cur) sync(false, true);
+  }
+});
+
+/* harmony modes */
+var HM = [
+  [
+    "Analogous",
+    [
+      [-50, -5, 6],
+      [-25, 0, 0],
+      [0, 0, 0],
+      [25, 0, -6],
+      [50, -5, -12],
+    ],
+  ],
+  [
+    "Complementary",
+    [
+      [0, -5, -28],
+      [0, 0, 0],
+      [0, -15, 24],
+      [180, 0, 0],
+      [180, -12, 20],
+    ],
+  ],
+  [
+    "Triadic",
+    [
+      [0, 0, 0],
+      [120, -5, 0],
+      [240, -5, 0],
+      [0, -20, 26],
+      [240, -10, -24],
+    ],
+  ],
+  [
+    "Split",
+    [
+      [0, 0, 0],
+      [150, 0, 0],
+      [210, 0, 0],
+      [0, -15, 24],
+      [180, -10, -26],
+    ],
+  ],
+];
+function harmony(spec) {
+  if (!cur) return;
+  var li = locks.indexOf(true),
+    anchor = cur.base[li > -1 ? li : 0],
+    a = h2hsl(anchor);
+  cur.base = spec.map(function (p) {
+    return p[0] === 0 && p[1] === 0 && p[2] === 0
+      ? anchor
+      : hsl(a[0] + p[0], a[1] + p[1], a[2] + p[2]);
+  });
+  cur.names = null;
+  locks = [];
+  $("hint").textContent =
+    "Built around " + anchor.toUpperCase() + ". Lock a swatch first to use a different color.";
+  sync();
+}
+HM.forEach(function (h) {
+  var b = el("button", "btn", h[0]);
+  b.onclick = function () {
+    harmony(h[1]);
+  };
+  $("hm").appendChild(b);
+});
+
+/* live preview */
+function rl(x) {
+  var c = [1, 3, 5].map(function (i) {
+    var v = parseInt(x.substr(i, 2), 16) / 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+}
+function cr(a, b) {
+  var x = rl(a),
+    y = rl(b);
+  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+}
+function drawLVseg() {
+  segSet(
+    "lvseg",
+    [
+      ["web", "Website"],
+      ["app", "App screen"],
+      ["slide", "Slide"],
+    ],
+    lvMode,
+    function (v) {
+      lvMode = v;
+      drawLVseg();
+      drawLV();
+    },
+  );
+}
+function drawLV() {
+  var lv = $("lv");
+  if (!lv || !cur) return;
+  var cols = cur.cols,
+    so = cols.slice().sort(function (a, b) {
+      return rl(a) - rl(b);
+    }),
+    lo = so[0],
+    hi = so[so.length - 1],
+    bg = rl(hi) >= 0.3 ? hi : lo,
+    fg = bg === hi ? lo : hi;
+  if (cr(bg, fg) < 4.5) {
+    var dk = "#16140f",
+      wh = "#ffffff";
+    fg = cr(bg, dk) >= cr(bg, wh) ? dk : wh;
+  }
+  var pool = cols.filter(function (c) {
+    return c !== bg && c !== fg;
+  });
+  if (pool.length < 2)
+    pool = cols.filter(function (c) {
+      return c !== bg;
+    });
+  var sc = function (c) {
+    var a = h2hsl(c);
+    return a[1] * (1 - Math.abs(a[2] - 50) / 60);
+  };
+  pool.sort(function (a, b) {
+    return sc(b) - sc(a);
+  });
+  var A = pool[0] || fg,
+    B = pool[1] || A,
+    st = lv.style;
+  st.setProperty("--pb", bg);
+  st.setProperty("--pf", fg);
+  st.setProperty("--pa", A);
+  st.setProperty("--pai", ink(A));
+  st.setProperty("--pb2", B);
+  st.setProperty("--pbi", ink(B));
+  st.setProperty("--pt", cr(A, bg) >= 3 ? A : fg);
+  var h;
+  if (lvMode === "web")
+    h =
+      '<div class="vp"><div class="vn"><b>Studio</b><span>Work</span><span>About</span><span class="vbt">Contact</span></div><div class="vh"><small>New collection</small><h3 data-t></h3><p>A short line showing how body text reads against this background.</p><span class="vbt">Get started</span><span class="vbt o">Learn more</span></div><div class="vg"><div><i></i>Calm</div><div><i></i>Bold</div><div><i></i>Quiet</div></div></div>';
+  else if (lvMode === "app")
+    h =
+      '<div class="vp app"><div class="vah"><small>Today</small><b data-t></b></div><div class="val"><div class="vli"><i></i><div>Morning walk<span>8:30 · 20 min</span></div></div><div class="vli"><i></i><div>Deep work<span>10:00 · 90 min</span></div></div><div class="vli"><i></i><div>Evening wind-down<span>21:00 · 30 min</span></div></div></div><div class="vtab"><span class="on">Home</span><span>Plan</span><span>Me</span></div></div>';
+  else
+    h =
+      '<div class="vp slide"><div class="vsl"><small>Q3 review</small><h3 data-t></h3><hr><ul><li>One clear idea per slide</li><li>Colors carry the mood</li><li>Text stays easy to read</li></ul></div><div class="vsr"><div><b>87%</b><span>feels right</span></div></div></div>';
+  lv.innerHTML = h;
+  var t = lv.querySelector("[data-t]");
+  if (t) t.textContent = plName || $("q").value.trim() || "Your vibe";
+}
+
+/* lock-screen controls */
+var artKey = "",
+  artData = "",
+  lastMk = "";
+function art() {
+  var k = cur.cols.join();
+  if (k === artKey) return artData;
+  var c = document.createElement("canvas");
+  c.width = c.height = 512;
+  var x = c.getContext("2d"),
+    n = cur.cols.length;
+  cur.cols.forEach(function (col, i) {
+    x.fillStyle = col;
+    x.fillRect(Math.floor((i * 512) / n), 0, Math.ceil(512 / n) + 1, 512);
+  });
+  artKey = k;
+  artData = c.toDataURL("image/png");
+  return artData;
+}
+function media() {
+  if (!("mediaSession" in navigator)) return;
+  var t = pi >= 0 ? tracks[pi] : null;
+  try {
+    if (!t || !cur) {
+      lastMk = "";
+      navigator.mediaSession.metadata = null;
+      navigator.mediaSession.playbackState = "none";
+      return;
+    }
+    var k = pi + "|" + t.title + "|" + t.artist;
+    if (k !== lastMk) {
+      lastMk = k;
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: t.title,
+        artist: t.artist,
+        album: plName || "Moodboard",
+        artwork: [{ src: art(), sizes: "512x512", type: "image/png" }],
+      });
+    }
+    navigator.mediaSession.playbackState = au.paused ? "paused" : "playing";
+  } catch (e) {}
+}
+var _setUI = setUI;
+setUI = function (l) {
+  _setUI(l);
+  media();
+};
+function msh(a, f) {
+  try {
+    navigator.mediaSession.setActionHandler(a, f);
+  } catch (e) {}
+}
+if ("mediaSession" in navigator) {
+  msh("play", function () {
+    if (pi < 0 && tracks.length) playIdx(0, true);
+    else au.play();
+  });
+  msh("pause", function () {
+    au.pause();
+  });
+  msh("nexttrack", function () {
+    if (pi >= 0 && pi < tracks.length - 1) playIdx(pi + 1, allMode);
+  });
+  msh("previoustrack", function () {
+    if (pi > 0) playIdx(pi - 1, allMode);
+  });
+}
+
+/* ambient: fullscreen + keep awake */
+var wl = null;
+async function wake() {
+  try {
+    if ("wakeLock" in navigator && document.body.classList.contains("amb"))
+      wl = await navigator.wakeLock.request("screen");
+  } catch (e) {}
+}
+function enterAmb() {
+  document.body.classList.add("amb");
+  wake();
+  var d = document.documentElement;
+  try {
+    var p = (d.requestFullscreen || d.webkitRequestFullscreen).call(d);
+    if (p && p.catch) p.catch(function () {});
+  } catch (e) {}
+}
+function exitAmb() {
+  document.body.classList.remove("amb");
+  try {
+    if (wl) {
+      wl.release();
+      wl = null;
+    }
+  } catch (e) {}
+  try {
+    if (document.fullscreenElement || document.webkitFullscreenElement)
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+  } catch (e) {}
+}
+$("ambb").onclick = enterAmb;
+$("amb").onclick = exitAmb;
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" && document.body.classList.contains("amb")) exitAmb();
+});
+document.addEventListener("fullscreenchange", function () {
+  if (!document.fullscreenElement && document.body.classList.contains("amb")) exitAmb();
+});
+document.addEventListener("visibilitychange", function () {
+  if (document.visibilityState === "visible") wake();
+});
+
+/* ---- song verification: flag songs the model made up and try to replace them once ---- */
+var vtok = 0;
+function markRow(i) {
+  var t = tracks[i],
+    r = $("out").querySelectorAll(".trk")[i];
+  if (!r || !t) return;
+  var sm = r.querySelector(".t small");
+  if (!sm) return;
+  var w = sm.querySelector(".warn");
+  if (t.ok === false) {
+    if (!w) sm.appendChild(el("span", "warn", " · not found"));
+  } else {
+    if (w) w.remove();
+    if (t.ok === true && !sm.querySelector(".okb")) sm.appendChild(el("span", "okb", " · ✓"));
+  }
+}
+async function verifyRun(my) {
+  var q = [];
+  tracks.forEach(function (t, i) {
+    if (t.ok === undefined) q.push(i);
+  });
+  await Promise.all(
+    [0, 1, 2, 3].map(async function () {
+      while (q.length && my === vtok) {
+        var i = q.shift();
+        try {
+          await lookup(tracks[i]);
+        } catch (e) {}
+        markRow(i);
+      }
+    }),
+  );
+  setUI();
+}
+function badList() {
+  var b = [];
+  tracks.forEach(function (t, i) {
+    if (t.ok === false) b.push(i);
+  });
+  return b;
+}
+async function verifyTracks(fix) {
+  var my = ++vtok,
+    note = $("pnote");
+  note.textContent = "Checking that the songs exist…";
+  await verifyRun(my);
+  if (my !== vtok) return;
+  var bad = badList();
+  if (bad.length && fix && pi < 0) {
+    note.textContent =
+      "Replacing " +
+      bad.length +
+      " song" +
+      (bad.length > 1 ? "s" : "") +
+      " that could not be found…";
+    try {
+      var mood = $("q").value.trim() || plName || "good vibes",
+        list = tracks
+          .map(function (t, k) {
+            return k + 1 + ". " + t.title + " - " + t.artist;
+          })
+          .join("\n");
+      var j = await callG(
+        'A playlist for the mood "' +
+          mood +
+          '" has these songs:\n' +
+          list +
+          "\nSongs " +
+          bad
+            .map(function (i) {
+              return i + 1;
+            })
+            .join(", ") +
+          ' could not be found in any music catalogue, so they are probably wrong or invented. Replace each of them with a different real, commercially released song that fits the mood and the playlist. Do not repeat any listed song. Only pick songs you are certain exist, with the exact title and primary artist. Return ONLY JSON: {"replacements":[{"title":"...","artist":"..."}]} with exactly ' +
+          bad.length +
+          " items in the same order.",
+      );
+      var reps = j.replacements || j.tracks || [];
+      if (my !== vtok || pi >= 0) return;
+      bad.forEach(function (i, k) {
+        var r = reps[k];
+        if (r && r.title && r.artist) tracks[i] = { title: r.title, artist: r.artist };
+      });
+      drawOut(true);
+      if (curId) saveCur();
+      await verifyRun(my);
+      if (my !== vtok) return;
+    } catch (e) {}
+    bad = badList();
+  }
+  tracks.forEach(function (t, i) {
+    markRow(i);
+  });
+  var unk = tracks.filter(function (t) {
+    return t.ok === undefined;
+  }).length;
+  note.textContent = bad.length
+    ? bad.length +
+      " song" +
+      (bad.length > 1 ? "s" : "") +
+      " could not be found and " +
+      (bad.length > 1 ? "are" : "is") +
+      " marked below. Double-check " +
+      (bad.length > 1 ? "them" : "it") +
+      " before you rely on it."
+    : unk
+      ? "Some songs could not be checked right now."
+      : "Every song was found in the catalogue.";
+}
+
+/* ---- compose panels ---- */
+function togglePanel(id) {
+  ["sp", "pd"].forEach(function (p) {
+    var e = $(p);
+    e.hidden = p === id ? !e.hidden : true;
+  });
+  $("bsong").classList.toggle("on", !$("sp").hidden);
+  $("bpaste").classList.toggle("on", !$("pd").hidden);
+  var f = $(id).hidden ? null : id === "sp" ? $("sq") : $("pt");
+  if (f) f.focus();
+}
+$("bsong").onclick = function () {
+  togglePanel("sp");
+};
+$("bpaste").onclick = function () {
+  togglePanel("pd");
+};
+
+window.addEventListener("hashchange", function () {
+  var h = location.hash.slice(1);
+  if (h === lastHash) return;
+  lastHash = h;
+  if (loadShared()) return;
+  var t;
+  try { t = decodeURIComponent(h); } catch (e) { return; }
+  if (!t) return;
+  $("q").value = t;
+  render(t);
+});
+document.addEventListener("visibilitychange", function () {
+  document.body.classList.toggle("hid", document.hidden);
+});
+if (hist.length) $("sv").open = true;
+drawLVseg();
+afterPaint();
+</script>
+</body>
+</html>
