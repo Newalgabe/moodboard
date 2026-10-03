@@ -2235,34 +2235,87 @@ function norm(x) {
     .trim();
 }
 /* Looks a song up in the iTunes catalogue: t.ok = it exists, t.pv = preview url or 'none'. A failed request leaves t.ok undefined (unknown). */
-function ij(term) {
+function ij(term, o) {
+  o = o || {};
+  var q = "term=" + term + (o.limit ? "&limit=" + o.limit : "") + (o.country ? "&country=" + o.country : "") + (o.attr ? "&attribute=" + o.attr : "");
   function ok(r) { if (!r.ok) throw new Error("itunes"); return r.json(); }
-  if (API) return fetch(API + "/itunes?term=" + term).then(ok);
-  var u = "https://itunes.apple.com/search?entity=song&limit=10&term=" + term;
+  if (API) return fetch(API + "/itunes?" + q).then(ok);
+  var u = "https://itunes.apple.com/search?entity=song&" + (o.limit ? "" : "limit=10&") + q;
   return fetch(u).then(ok).catch(function () { return jp(u); });
 }
+function tkey(x) {
+  var v = String(x || "").toLowerCase().replace(/\s[-–—]\s.*(remaster|version|edit|mix|live|mono|stereo|deluxe|bonus|single|album|acoustic|demo|radio).*$/i, "");
+  var k = norm(v);
+  return k || String(v).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+function wordsIn(a, b) {
+  var sh = a.length <= b.length ? a : b, lo = a.length <= b.length ? b : a;
+  return (" " + lo + " ").indexOf(" " + sh + " ") > -1 && sh.length >= 0.6 * lo.length;
+}
+function artistsOf(x) {
+  var a = String(x || "").split(/\s*(?:,|;|\/|&|\band\b|\bfeat\.?\b|\bft\.?\b|\bfeaturing\b|\bwith\b|\bx\b)\s*/i).map(norm).filter(Boolean);
+  var full = norm(x);
+  if (full && a.indexOf(full) < 0) a.push(full);
+  return a;
+}
+function artistOk(want, ra) {
+  ra = norm(ra);
+  return want.some(function (w) {
+    return w.length > 1 && (ra === w || (" " + ra + " ").indexOf(" " + w + " ") > -1 || (" " + w + " ").indexOf(" " + ra + " ") > -1);
+  });
+}
+function cleanTracks(arr) {
+  var seen = {}, per = {};
+  return arr.filter(function (t) {
+    var a = artistsOf(t.artist)[0] || "", k = tkey(t.title) + "|" + a;
+    if (seen[k] || (per[a] || 0) >= 2) return false;
+    seen[k] = 1;
+    per[a] = (per[a] || 0) + 1;
+    return true;
+  });
+}
+/* Looks a song up in the iTunes catalogue (several searches and storefronts): t.ok = exists, t.pv = preview url or 'none'. If every request fails, t.ok stays undefined (unknown). */
 function lookup(t) {
   if (t.ok !== undefined) return Promise.resolve(t);
-  return ij(encodeURIComponent(t.title + " " + t.artist)).then(function (d) {
-    var nt = norm(t.title),
-      na = norm(String(t.artist).split(/,|&| and | feat\.? | ft\.? /i)[0]);
-    var hits = (d.results || []).filter(function (r) {
-      var rt = norm(r.trackName),
-        ra = norm(r.artistName);
-      return (
-        nt.length > 1 &&
-        na.length > 1 &&
-        (rt === nt || rt.indexOf(nt) > -1 || nt.indexOf(rt) > -1) &&
-        (ra.indexOf(na) > -1 || na.indexOf(ra) > -1)
-      );
-    });
-    var withPv = hits.filter(function (r) {
-      return r.previewUrl;
-    })[0];
-    t.ok = hits.length > 0;
-    t.pv = withPv ? withPv.previewUrl : "none";
-    return t;
-  });
+  var nt = tkey(t.title), wa = artistsOf(t.artist), failed = 0;
+  var base = encodeURIComponent(t.title + " " + t.artist);
+  var tries = [
+    { term: base, limit: 25 },
+    { term: encodeURIComponent(t.title), attr: "songTerm", limit: 50 },
+    { term: base, limit: 25, country: "tr" },
+    { term: base, limit: 25, country: "az" },
+    { term: base, limit: 25, country: "gb" },
+  ];
+  function good(r) {
+    var rt = tkey(r.trackName);
+    return nt.length > 1 && (rt === nt || wordsIn(rt, nt)) && artistOk(wa, r.artistName);
+  }
+  function step(i) {
+    if (i >= tries.length) {
+      if (failed === tries.length) return t;
+      t.ok = false;
+      t.pv = "none";
+      return t;
+    }
+    return ij(tries[i].term, tries[i]).then(
+      function (d) {
+        var hits = (d.results || []).filter(good);
+        if (!hits.length) return step(i + 1);
+        hits.sort(function (a, b) {
+          return (tkey(b.trackName) === nt) - (tkey(a.trackName) === nt);
+        });
+        var pv = hits.filter(function (r) { return r.previewUrl; })[0];
+        t.ok = true;
+        t.pv = pv ? pv.previewUrl : "none";
+        return t;
+      },
+      function () {
+        failed++;
+        return step(i + 1);
+      },
+    );
+  }
+  return step(0);
 }
 function getPv(t) {
   return lookup(t)
@@ -2330,7 +2383,10 @@ async function playIdx(i, all) {
   var u = await getPv(tracks[i]);
   if (pi !== i) return;
   if (u === "none") {
-    if (all) return playIdx(i + 1, true);
+    if (all) {
+      $("pnote").textContent = "No preview for \u201c" + tracks[i].title + "\u201d, skipping.";
+      return playIdx(i + 1, true);
+    }
     pi = -1;
     setUI();
     return;
@@ -3088,7 +3144,7 @@ async function gen(img, mix, seed) {
     " " +
     optsText() +
     lockText +
-    '\nRules: only include real, commercially released songs you are highly confident exist, with the exact correct title and primary artist. Never guess or invent. Mix well-known and lesser-known tracks (unless told otherwise), at most 2 songs per artist, no duplicates, ordered so the playlist flows. Songs must genuinely fit the mood in feel, tempo and lyrics. Also give the playlist a short, evocative name (max 4 words, no quotes) and a mood title of 2 to 5 words. Then make a color palette of 6 hex colors that captures EVERY visual element or feeling in the mood (for example, a sunset on the beach needs sky, sun, sea and sand colors, not just shades of one hue); give each color a short evocative name. Add 3 fitting genres, a tempo range as text like 70–90, and a one-sentence description of the vibe.\nReturn ONLY JSON: {"name":"...","mood":"...","blurb":"...","genres":["..."],"bpm":"...","palette":[{"hex":"#rrggbb","name":"..."}],"tracks":[{"title":"...","artist":"..."}]}';
+    '\nRules: only include real, commercially released songs you are highly confident exist, with the exact correct title and primary artist (title as on the original release, without remaster, live or version tags). Never guess or invent. Mix well-known and lesser-known tracks (unless told otherwise), at most 2 songs per artist, no duplicates, ordered so the playlist flows. Songs must genuinely fit the mood in feel, tempo and lyrics. Also give the playlist a short, evocative name (max 4 words, no quotes) and a mood title of 2 to 5 words. Then make a color palette of 6 hex colors that captures EVERY visual element or feeling in the mood (for example, a sunset on the beach needs sky, sun, sea and sand colors, not just shades of one hue); give each color a short evocative name. Add 3 fitting genres, a tempo range as text like 70–90, and a one-sentence description of the vibe.\nReturn ONLY JSON: {"name":"...","mood":"...","blurb":"...","genres":["..."],"bpm":"...","palette":[{"hex":"#rrggbb","name":"..."}],"tracks":[{"title":"...","artist":"..."}]}';
   try {
     var content = img
       ? [
@@ -3128,7 +3184,8 @@ async function gen(img, mix, seed) {
       .filter(function (t) {
         return t && t.title && t.artist;
       })
-      .slice(0, +$("n").value);
+      ;
+    tracks = cleanTracks(tracks).slice(0, +$("n").value);
     if (!tracks.length) $("pnote").textContent = "Nothing came back. Try again.";
     drawOut();
     curId = null;
@@ -4315,71 +4372,69 @@ function badList() {
 }
 async function verifyTracks(fix) {
   var my = ++vtok,
-    note = $("pnote");
+    note = $("pnote"),
+    target = +$("n").value || tracks.length;
   note.textContent = "Checking that the songs exist…";
   await verifyRun(my);
   if (my !== vtok) return;
-  var bad = badList();
-  if (bad.length && fix && pi < 0) {
-    note.textContent =
-      "Replacing " +
-      bad.length +
-      " song" +
-      (bad.length > 1 ? "s" : "") +
-      " that could not be found…";
+  var round = 0;
+  while (fix && pi < 0 && round < 3 && (badList().length || tracks.length < target)) {
+    round++;
+    var bad = badList(), need = bad.length + Math.max(0, target - tracks.length);
+    note.textContent = "Finding better songs" + (round > 1 ? " (try " + round + ")" : "") + "…";
     try {
       var mood = $("q").value.trim() || plName || "good vibes",
-        list = tracks
-          .map(function (t, k) {
-            return k + 1 + ". " + t.title + " - " + t.artist;
-          })
-          .join("\n");
+        list = tracks.map(function (t, k) { return k + 1 + ". " + t.title + " - " + t.artist + (t.ok === false ? " [NOT FOUND]" : ""); }).join("\n");
       var j = await callG(
-        'A playlist for the mood "' +
-          mood +
-          '" has these songs:\n' +
-          list +
-          "\nSongs " +
-          bad
-            .map(function (i) {
-              return i + 1;
-            })
-            .join(", ") +
-          ' could not be found in any music catalogue, so they are probably wrong or invented. Replace each of them with a different real, commercially released song that fits the mood and the playlist. Do not repeat any listed song. Only pick songs you are certain exist, with the exact title and primary artist. Return ONLY JSON: {"replacements":[{"title":"...","artist":"..."}]} with exactly ' +
-          bad.length +
-          " items in the same order.",
+        'A playlist for the mood "' + mood + '" has these songs:\n' + list +
+        "\nSongs marked [NOT FOUND] do not exist in any music catalogue, so they were wrong or invented. Give " + (need + 2) +
+        " different real, commercially released songs that fit the mood and the playlist, to replace them and fill the playlist. Do not repeat any listed song and use at most 2 songs per artist. " +
+        sliderText() + " " + optsText().replace(/Make it exactly \d+ tracks\.\s?/, "") +
+        ' Only pick songs you are certain exist, with the exact title (no remaster, live or version tags) and the main artist. Return ONLY JSON: {"songs":[{"title":"...","artist":"..."}]}',
       );
-      var reps = j.replacements || j.tracks || [];
       if (my !== vtok || pi >= 0) return;
-      bad.forEach(function (i, k) {
-        var r = reps[k];
-        if (r && r.title && r.artist) tracks[i] = { title: r.title, artist: r.artist };
+      var have = {};
+      tracks.forEach(function (t) { have[tkey(t.title)] = 1; });
+      var cands = cleanTracks(tracks.filter(function (t) { return t.ok !== false; }).concat(
+        (j.songs || j.replacements || j.tracks || []).filter(function (r) { return r && r.title && r.artist && !have[tkey(r.title)]; }).map(function (r) { return { title: String(r.title), artist: String(r.artist), cand: 1 }; })
+      )).filter(function (t) { return t.cand; });
+      var pool = cands.slice(), gone = [];
+      bad.forEach(function (i) {
+        var r = pool.shift();
+        if (r) tracks[i] = { title: r.title, artist: r.artist };
+        else gone.push(i);
       });
+      gone.reverse().forEach(function (i) { tracks.splice(i, 1); });
+      while (tracks.length < target && pool.length) {
+        var r2 = pool.shift();
+        tracks.push({ title: r2.title, artist: r2.artist });
+      }
+    } catch (e) { break; }
+    drawOut(true);
+    if (curId) saveCur();
+    await verifyRun(my);
+    if (my !== vtok) return;
+  }
+  var dropped = 0;
+  if (fix && pi < 0) {
+    var keep = tracks.filter(function (t) { return t.ok !== false; });
+    dropped = tracks.length - keep.length;
+    if (dropped) {
+      tracks = keep;
       drawOut(true);
       if (curId) saveCur();
-      await verifyRun(my);
-      if (my !== vtok) return;
-    } catch (e) {}
-    bad = badList();
+    }
   }
-  tracks.forEach(function (t, i) {
-    markRow(i);
-  });
-  var unk = tracks.filter(function (t) {
-    return t.ok === undefined;
-  }).length;
-  note.textContent = bad.length
-    ? bad.length +
-      " song" +
-      (bad.length > 1 ? "s" : "") +
-      " could not be found and " +
-      (bad.length > 1 ? "are" : "is") +
-      " marked below. Double-check " +
-      (bad.length > 1 ? "them" : "it") +
-      " before you rely on it."
-    : unk
-      ? "Some songs could not be checked right now."
-      : "Every song was found in the catalogue.";
+  tracks.forEach(function (t, i) { markRow(i); });
+  var bad2 = badList().length,
+    unk = tracks.filter(function (t) { return t.ok === undefined; }).length;
+  note.textContent = bad2
+    ? bad2 + " song" + (bad2 > 1 ? "s" : "") + " could not be found and " + (bad2 > 1 ? "are" : "is") + " marked below. Double-check before you rely on " + (bad2 > 1 ? "them" : "it") + "."
+    : dropped
+      ? "Dropped " + dropped + " song" + (dropped > 1 ? "s" : "") + " that could not be verified" + (tracks.length < target ? "; remake the playlist for more." : ".")
+      : unk
+        ? "Some songs could not be checked right now."
+        : "Every song was found in the catalogue.";
 }
 
 /* ---- compose panels ---- */

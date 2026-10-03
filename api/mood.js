@@ -56,7 +56,7 @@ module.exports = async (req, res) => {
         model,
         messages: [{ role: "user", content }],
         response_format: { type: "json_object" },
-        temperature: 0.8,
+        temperature: 0.5,
       }),
     });
     const d = await r.json().catch(() => ({}));
